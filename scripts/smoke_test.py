@@ -2,11 +2,13 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
+import time
 import urllib.error
 import urllib.request
 
-BASE = "http://127.0.0.1:8080"
+BASE = (os.environ.get("SMOKE_BASE") or os.environ.get("BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
 results: list[tuple[str, bool, str]] = []
 
 
@@ -99,14 +101,21 @@ check(
     f"inv={fields.get('invoice_no')} amt={fields.get('amount')}",
 )
 
-# Create ledger
+# Create ledger (unique code each run)
+_ledger_code = f"SM{int(time.time()) % 100000:05d}"
 c, data = req(
     "POST",
     "/api/books/ledgers",
-    {"code": "SMOK9", "name": "Smoke Ledger", "account_type": "expense", "is_group": False, "opening_balance": 0},
+    {"code": _ledger_code, "name": f"Smoke Ledger {_ledger_code}", "account_type": "expense", "is_group": False, "opening_balance": 0},
     token=token,
 )
-check("POST /api/books/ledgers", c == 200 and (isinstance(data, dict) and data.get("code") == "SMOK9"), str(data.get("message") if isinstance(data, dict) else data)[:80])
+_ledger_ok = c == 200 and isinstance(data, dict) and data.get("code") == _ledger_code
+_ledger_detail = f"code={_ledger_code}"
+if isinstance(data, dict):
+    _ledger_detail += f" msg={data.get('message') or data.get('detail') or ''}"[:80]
+else:
+    _ledger_detail += f" resp={str(data)[:60]}"
+check("POST /api/books/ledgers", _ledger_ok, _ledger_detail)
 
 # Payment voucher small
 c, data = req(
