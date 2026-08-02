@@ -1,20 +1,23 @@
-# KanhaERP on Render — https://kanhaerp.onrender.com
+# KanhaERP on Render — https://kanha-erp.onrender.com
 # Optional custom domain: erp.kanhaone.com → this service
 services:
   - type: web
-    name: kanhaerp
-    runtime: docker
+    name: kanha-erp
+    runtime: python
     plan: free
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    region: oregon
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: PYTHONPATH=backend uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
     envVars:
       - key: DEMO_MODE
         value: "true"
       - key: APP_NAME
         value: KanhaERP
+      - key: PYTHON_VERSION
+        value: "3.12.8"
       - key: CORS_ORIGINS
-        value: "https://kanhaerp.onrender.com,https://kanhaone.com,https://erp.kanhaone.com,http://127.0.0.1:8080"
+        value: "https://kanha-erp.onrender.com,https://kanhaerp.onrender.com,https://kanhaone.com,https://erp.kanhaone.com,http://127.0.0.1:8080"
       - key: SECRET_KEY
         generateValue: true
       - key: WHATSAPP_VERIFY_TOKEN
