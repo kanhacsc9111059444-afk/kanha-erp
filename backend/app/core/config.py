@@ -49,6 +49,7 @@ class Settings(BaseSettings):
     # Bootstrap admin (used when seeding empty DB)
     admin_email: str = "admin@kanhaerp.com"
     admin_password: str = "admin123"
+    admin_full_name: str = "Kanha Admin"
     core_owner_email: str = ""  # optional extra owner email for Core Control (defaults to admin_email)
     # Owner Ultra Support unlock (login page). Env: CORE_CONTROL_PASS.
     # Demo fallback if empty: KanhaCoreUltra1. Production: set a strong secret in .env.
