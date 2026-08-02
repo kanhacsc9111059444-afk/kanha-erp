@@ -1,0 +1,13 @@
+{
+  "source": "https://erp.sbacindia.in/user/UserHome.aspx",
+  "company": "SHRI BALAJI ALLOYS CORPORATION - SBAC RPR",
+  "captured": "2026-08-02",
+  "menus": [
+    "Admin", "Master", "Marketing", "Order Module", "Sales", "Purchase",
+    "Production", "Indents", "Accounts", "Store", "HR", "Visit", "Task",
+    "MIS", "MIS Panel", "Service", "App Menu", "Tally"
+  ],
+  "build_priority": [
+    "masters", "sales_chain", "purchase_chain", "store", "accounts", "hr", "mis", "tally", "extras"
+  ]
+}

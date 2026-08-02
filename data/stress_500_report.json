@@ -1,0 +1,28 @@
+{
+  "base": "http://127.0.0.1:8080",
+  "total_ops": 498,
+  "ok": 498,
+  "fail": 0,
+  "success_rate_pct": 100.0,
+  "elapsed_sec": 17.36,
+  "per_module": {
+    "auth": 1,
+    "health": 1,
+    "legal": 1,
+    "approvals": 5,
+    "hrms": 64,
+    "accounting": 32,
+    "ai": 21,
+    "inventory": 52,
+    "crm": 251,
+    "purchase": 1,
+    "sales": 45,
+    "service": 20,
+    "agents": 2,
+    "compliance": 1,
+    "whatsapp": 1
+  },
+  "errors_sample": [],
+  "error_count": 0,
+  "verdict": "PASS_WITH_GAPS"
+}

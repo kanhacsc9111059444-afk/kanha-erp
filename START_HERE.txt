@@ -1,0 +1,96 @@
+========================================
+  KanhaERP — START HERE (Portable)
+========================================
+
+Sabse pehle yeh padho. Common user ke liye simple steps.
+
+----------------------------------------
+1) COMPUTER PAR PYTHON
+----------------------------------------
+Python 3.11+ install hona chahiye:
+  https://www.python.org/downloads/
+
+Install ke time "Add python.exe to PATH" tick karo.
+
+Check:
+  python --version
+
+----------------------------------------
+2) PEHLI BAAR SETUP (sirf ek baar)
+----------------------------------------
+Is folder me double-click:
+
+  SETUP_PORTABLE.bat
+
+Yeh venv banayega + packages install karega.
+Internet chahiye (pehli baar ~2–5 min).
+
+----------------------------------------
+3) HAR BAAR START
+----------------------------------------
+Double-click:
+
+  START_KANHA.bat
+
+Browser kholo:
+  http://127.0.0.1:8080
+
+Band karne ke liye black window me Ctrl+C.
+
+----------------------------------------
+4) DEMO LOGIN (teen accounts)
+----------------------------------------
+  Admin     :  admin@kanhaerp.com     /  admin123
+  Sales     :  sales@kanhaerp.com     /  sales123
+  Accounts  :  accounts@kanhaerp.com  /  accounts123
+
+Login page pe icon tap → password → Enter workspace.
+
+----------------------------------------
+5) OWNER ULTRA SUPPORT (password bhool gaye)
+----------------------------------------
+Login page bottom-right chhota ◉ button.
+Demo Core Control pass:
+
+  KanhaCoreUltra1
+
+Ya Admin ka password bhi chalega.
+Wahan se Scan / Safe fix / Reset PW.
+
+Production me .env me CORE_CONTROL_PASS set karo.
+
+----------------------------------------
+6) ACTIVATION / CONNECTION FLOW
+----------------------------------------
+A) Local demo (abhi):
+   SETUP → START → browser → login. Koi cloud key nahi.
+
+B) Company PC pe permanent:
+   1. Copy folder C:\KanhaERP (ya D:\KanhaERP)
+   2. SETUP_PORTABLE.bat
+   3. copy .env.example .env
+   4. .env me SECRET_KEY + passwords badlo
+   5. DEMO_MODE=false (go-live pe)
+   6. START_KANHA.bat ya Windows service (optional)
+
+C) Real WhatsApp / Razorpay / GST GSP:
+   .env me keys bhara → restart server
+   Settings → Go-live checklist green karo
+
+D) Postgres (badi company):
+   DATABASE_URL=postgresql+psycopg2://user:pass@host:5432/kanha_erp
+   Detail: GO_LIVE.md aur README.md
+
+----------------------------------------
+7) HELP FILES
+----------------------------------------
+  README.md              — project overview + flow + white-label
+  docs\USER_GUIDE.md     — user guide (Hindi+English)
+  docs\ACTIVATION.md     — activation / connection
+  docs\WHITE_LABEL.md    — kisi bhi company ka naam / brand
+  GO_LIVE.md             — production checklist
+  docs\client-erp\MAP.md — SBAC field map
+
+========================================
+  KanhaERP Portable Pack
+========================================

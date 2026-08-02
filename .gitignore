@@ -1,0 +1,15 @@
+﻿.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+data/*.db
+data/uploads/
+data/recheck_browser/
+data/mirrors/
+data/backups/
+data/*.log
+data/*.err
+.env
+node_modules/
+frontend-next/
+.pytest_cache/

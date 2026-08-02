@@ -1,0 +1,12 @@
+{
+  "name": "KanhaERP",
+  "short_name": "KanhaERP",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "description": "Enterprise customizable ERP — complete business OS",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

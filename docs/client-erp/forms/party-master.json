@@ -1,0 +1,1450 @@
+{
+  "url": "https://erp.sbacindia.in/Balaji/BalajiPartymaster.aspx",
+  "tabs": [
+    "Add Party",
+    "View Party"
+  ],
+  "buttons": [
+    "Search",
+    "Submit",
+    "Delete",
+    "Reset",
+    "Continue..",
+    "?",
+    "🎧",
+    "⛶",
+    "Show recent sales orders",
+    "Sales invoices this month",
+    "Who are my top customers",
+    "Monthly sales summary",
+    "Show open purchase orders",
+    "Purchase invoices from fill in",
+    "Who are my top suppliers",
+    "Monthly purchase summary",
+    "Stock on hand for fill in",
+    "Items below reorder level",
+    "What is the rate of fill in",
+    "Search item fill in",
+    "Show payment vouchers",
+    "Ledger balance for fill in",
+    "Find party fill in",
+    "What is pending for approval",
+    "Recent material receipts (MRN)",
+    "Show recent indents",
+    "Send"
+  ],
+  "fields": [
+    {
+      "label": "Create Lead Source",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl02_chkid"
+    },
+    {
+      "label": "Day Book",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl04_chkid"
+    },
+    {
+      "label": "Task Assignment",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl05_chkid"
+    },
+    {
+      "label": "Pendig Lead For SalesOrder",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl07_chkid"
+    },
+    {
+      "label": "Grade Pay",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl08_chkid"
+    },
+    {
+      "label": "Create Indent",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl10_chkid"
+    },
+    {
+      "label": "Tally Error",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl11_chkid"
+    },
+    {
+      "label": "Stock Register",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl13_chkid"
+    },
+    {
+      "label": "Credit Note",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl14_chkid"
+    },
+    {
+      "label": "Create Sales Order",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl16_chkid"
+    },
+    {
+      "label": "Generate Complain",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl17_chkid"
+    },
+    {
+      "label": "Party Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl19_chkid"
+    },
+    {
+      "label": "Create PO",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl20_chkid"
+    },
+    {
+      "label": "Request Payment",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl22_chkid"
+    },
+    {
+      "label": "Stock Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl23_chkid"
+    },
+    {
+      "label": "Sales Pipeline",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl25_chkid"
+    },
+    {
+      "label": "Edit New Sales Order",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl26_chkid"
+    },
+    {
+      "label": "Lead Entry",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl28_chkid"
+    },
+    {
+      "label": "Debit Note",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl29_chkid"
+    },
+    {
+      "label": "Create Profile",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl31_chkid"
+    },
+    {
+      "label": "Leave Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl32_chkid"
+    },
+    {
+      "label": "Indent Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl34_chkid"
+    },
+    {
+      "label": "Group Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl35_chkid"
+    },
+    {
+      "label": "Main Group",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl37_chkid"
+    },
+    {
+      "label": "Sub group",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl38_chkid"
+    },
+    {
+      "label": "Sales Analysis Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl40_chkid"
+    },
+    {
+      "label": "Leave Configuration",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl41_chkid"
+    },
+    {
+      "label": "Journal",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl43_chkid"
+    },
+    {
+      "label": "Balance Sheet",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl44_chkid"
+    },
+    {
+      "label": "Edit Purchase Return",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl46_chkid"
+    },
+    {
+      "label": "Complaint Details",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl47_chkid"
+    },
+    {
+      "label": "Process Payment Request",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl49_chkid"
+    },
+    {
+      "label": "Active Bill and Voucher",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl50_chkid"
+    },
+    {
+      "label": "Create Sale Return",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl52_chkid"
+    },
+    {
+      "label": "Register",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl53_chkid"
+    },
+    {
+      "label": "Salary Head Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl55_chkid"
+    },
+    {
+      "label": "Tender Details",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl56_chkid"
+    },
+    {
+      "label": "Pending Indent Po",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl58_chkid"
+    },
+    {
+      "label": "Ledger Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl59_chkid"
+    },
+    {
+      "label": "Executive Location Summary",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl61_chkid"
+    },
+    {
+      "label": "Attendance Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl62_chkid"
+    },
+    {
+      "label": "Upload Party Details",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl64_chkid"
+    },
+    {
+      "label": "Map Tracking",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl65_chkid"
+    },
+    {
+      "label": "Create Purchase Return",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl67_chkid"
+    },
+    {
+      "label": "Change Employee Mobile No",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl68_chkid"
+    },
+    {
+      "label": "Issue Items",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl70_chkid"
+    },
+    {
+      "label": "Inventory Dashboard",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl71_chkid"
+    },
+    {
+      "label": "Buyer outstanding",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl73_chkid"
+    },
+    {
+      "label": "Receive Items",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl74_chkid"
+    },
+    {
+      "label": "Physical Stock",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl76_chkid"
+    },
+    {
+      "label": "Vendor outstanding",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl77_chkid"
+    },
+    {
+      "label": "Employee Wise Leave Entry",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl79_chkid"
+    },
+    {
+      "label": "SalesOrders For Delivery Challan",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl80_chkid"
+    },
+    {
+      "label": "Trial Balance",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl82_chkid"
+    },
+    {
+      "label": "Create Branch",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl83_chkid"
+    },
+    {
+      "label": "Print Out TypeMaster",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl85_chkid"
+    },
+    {
+      "label": "Edit Delivery Challan New",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl86_chkid"
+    },
+    {
+      "label": "Reward outstanding",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl88_chkid"
+    },
+    {
+      "label": "Physical Stock Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl89_chkid"
+    },
+    {
+      "label": "Edit MRN",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl91_chkid"
+    },
+    {
+      "label": "Purchase Invoice For Po",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl92_chkid"
+    },
+    {
+      "label": "Country",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl94_chkid"
+    },
+    {
+      "label": "Salary Configuration",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl95_chkid"
+    },
+    {
+      "label": "Delete Delivery Challan",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl97_chkid"
+    },
+    {
+      "label": "Party Outstanding",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl98_chkid"
+    },
+    {
+      "label": "Print DSR",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl100_chkid"
+    },
+    {
+      "label": "Create Invoice in Cash",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl101_chkid"
+    },
+    {
+      "label": "Cancel Sales Invoice",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl103_chkid"
+    },
+    {
+      "label": "City",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl104_chkid"
+    },
+    {
+      "label": "Update Order and Invoice Status",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl106_chkid"
+    },
+    {
+      "label": "Party Merge",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl107_chkid"
+    },
+    {
+      "label": "Payment Followup",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl109_chkid"
+    },
+    {
+      "label": "List Of Leave Application",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl110_chkid"
+    },
+    {
+      "label": "Accounts MIS Panel",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl112_chkid"
+    },
+    {
+      "label": "Edit Sale Invoice In Cash",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl113_chkid"
+    },
+    {
+      "label": "Sales MIS Panel",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl115_chkid"
+    },
+    {
+      "label": "RFQ Rate Entry",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl116_chkid"
+    },
+    {
+      "label": "All Party Outstanding",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl118_chkid"
+    },
+    {
+      "label": "Category Catalouge",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl119_chkid"
+    },
+    {
+      "label": "Add Parameters",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl121_chkid"
+    },
+    {
+      "label": "Visit Planner",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl122_chkid"
+    },
+    {
+      "label": "Purchase Requisition for PO",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl124_chkid"
+    },
+    {
+      "label": "Pending Challan",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl125_chkid"
+    },
+    {
+      "label": "Pending Task For Payment",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl127_chkid"
+    },
+    {
+      "label": "Inventory MIS Panel",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl128_chkid"
+    },
+    {
+      "label": "Purchase MIS Panel",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl130_chkid"
+    },
+    {
+      "label": "Activate Party For Adjustment",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl131_chkid"
+    },
+    {
+      "label": "Upload Party",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl133_chkid"
+    },
+    {
+      "label": "Followup Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl134_chkid"
+    },
+    {
+      "label": "PO Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl136_chkid"
+    },
+    {
+      "label": "Party Adjustment",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl137_chkid"
+    },
+    {
+      "label": "Salary Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl139_chkid"
+    },
+    {
+      "label": "Create MRN (CASH)",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl140_chkid"
+    },
+    {
+      "label": "User Wise Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl142_chkid"
+    },
+    {
+      "label": "Admin Dashboard",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl143_chkid"
+    },
+    {
+      "label": "Print Salary Slip",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl145_chkid"
+    },
+    {
+      "label": "Landing Cost configuration",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl146_chkid"
+    },
+    {
+      "label": "Party Wise Item Rate",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl148_chkid"
+    },
+    {
+      "label": "Indent For Production Challan",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl149_chkid"
+    },
+    {
+      "label": "Party Wise Rate Excel ForMat",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl151_chkid"
+    },
+    {
+      "label": "Item Wise Mrp",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl152_chkid"
+    },
+    {
+      "label": "Stock Reconciliation Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl154_chkid"
+    },
+    {
+      "label": "Office shift timing",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl155_chkid"
+    },
+    {
+      "label": "Delete Stock Reconciliation",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl157_chkid"
+    },
+    {
+      "label": "Call Log Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl158_chkid"
+    },
+    {
+      "label": "Finance Schedule Entry",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl160_chkid"
+    },
+    {
+      "label": "B2B Portal",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl161_chkid"
+    },
+    {
+      "label": "Sales Return For Delete",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl163_chkid"
+    },
+    {
+      "label": "Edit Finance Schedule",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl164_chkid"
+    },
+    {
+      "label": "Purchase Order For Delete",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl166_chkid"
+    },
+    {
+      "label": "Voucher Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl167_chkid"
+    },
+    {
+      "label": "Vehicle Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl169_chkid"
+    },
+    {
+      "label": "Edit Job Work Order",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl170_chkid"
+    },
+    {
+      "label": "Expense Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl172_chkid"
+    },
+    {
+      "label": "Pending Indent For Issue Material",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl173_chkid"
+    },
+    {
+      "label": "Edit Issue Material",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl175_chkid"
+    },
+    {
+      "label": "Indent Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl176_chkid"
+    },
+    {
+      "label": "Alert Configuration",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl178_chkid"
+    },
+    {
+      "label": "Party Master Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl179_chkid"
+    },
+    {
+      "label": "Item Wise Commission %",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl181_chkid"
+    },
+    {
+      "label": "Item Master Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl182_chkid"
+    },
+    {
+      "label": "Daily Currency Rate",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl184_chkid"
+    },
+    {
+      "label": "Alert Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl185_chkid"
+    },
+    {
+      "label": "Holiday Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl187_chkid"
+    },
+    {
+      "label": "Download Salary Slip",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl188_chkid"
+    },
+    {
+      "label": "Process Agent Commission",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl190_chkid"
+    },
+    {
+      "label": "Sales Invoice",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl191_chkid"
+    },
+    {
+      "label": "Delete Form Entry",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl193_chkid"
+    },
+    {
+      "label": "Employee Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl194_chkid"
+    },
+    {
+      "label": "Cost Center",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl196_chkid"
+    },
+    {
+      "label": "Edit Employee",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl197_chkid"
+    },
+    {
+      "label": "Sales Order Report",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl199_chkid"
+    },
+    {
+      "label": "Document Approval",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl200_chkid"
+    },
+    {
+      "label": "Doc Print",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl202_chkid"
+    },
+    {
+      "label": "Terms and Condition New",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl203_chkid"
+    },
+    {
+      "label": "Group wise Profit Percent",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl205_chkid"
+    },
+    {
+      "label": "Area Master",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl206_chkid"
+    },
+    {
+      "label": "Merge Item",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl208_chkid"
+    },
+    {
+      "label": "Employee Goals",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl209_chkid"
+    },
+    {
+      "label": "Assign App Menu",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl211_chkid"
+    },
+    {
+      "label": "Tally Erp Parent Mapping",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl212_chkid"
+    },
+    {
+      "label": "Group wise Catalogue Upload",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl214_chkid"
+    },
+    {
+      "label": "Inactive Ledger For Tally",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_allmenuicon_ctl215_chkid"
+    },
+    {
+      "label": "mm Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "yyyy",
+        "1900",
+        "1931",
+        "1932",
+        "1933",
+        "1934",
+        "1935",
+        "1936",
+        "1937",
+        "1938",
+        "1939",
+        "1940",
+        "1941",
+        "1942",
+        "1943",
+        "1944",
+        "1945",
+        "1946",
+        "1947",
+        "1948",
+        "1949",
+        "1950",
+        "1951",
+        "1952",
+        "1953"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_dtpjoinning_ddlYear"
+    },
+    {
+      "label": "GST Number",
+      "type": "text",
+      "required": false,
+      "placeholder": "GST Number",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtTINNO"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_txtfinalpartycode",
+      "type": "text",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtfinalpartycode"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_ddlpartynature",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "Domestic",
+        "Export"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_ddlpartynature"
+    },
+    {
+      "label": "Party Name",
+      "type": "text",
+      "required": false,
+      "placeholder": "Party Name",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtPartyName"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_ddlunderaccount",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--",
+        "Agent/Salesman A/C",
+        "Bank Accounts",
+        "Bank OD A/c",
+        "Branch / Divisions",
+        "EMPLOYEE",
+        "Employee A/c",
+        "INTEREST PAYABLE",
+        "Other Expence",
+        "Other Income",
+        "Production party",
+        "Secured Loans",
+        "SHED AND BUILDING",
+        "Sundry Creditors",
+        "Sundry Creditors (Commission)",
+        "Sundry Creditors (Employee)",
+        "Sundry Creditors (Transportation)",
+        "Sundry Debtors",
+        "Transport A/c"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_ddlunderaccount"
+    },
+    {
+      "label": "File As",
+      "type": "text",
+      "required": false,
+      "placeholder": "File As",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtfileas"
+    },
+    {
+      "label": "Whatsapp Number",
+      "type": "text",
+      "required": false,
+      "placeholder": "Whatsapp Number",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtWhatsappNumber"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_dtpjoinning_ddlDay",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "dd",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_dtpjoinning_ddlDay"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_txtwarea",
+      "type": "text",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtwarea"
+    },
+    {
+      "label": "Repeat Order Days",
+      "type": "text",
+      "required": false,
+      "placeholder": "Repeat Order Days",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_txtrepeatdays"
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION RPR",
+      "type": "checkbox",
+      "required": false,
+      "placeholder": "",
+      "options": [],
+      "id": "ctl00_ContentPlaceHolder1_chkbranchlist_0"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_ddlshoworderfollowup",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_ddlshoworderfollowup"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_ddltransportname",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--",
+        "DTDC COURIER- 251905",
+        "KUBER TRANSPORT SERVICES- 204642",
+        "CARRYCO TRANSPORT- 223235",
+        "DHARIWAL TRAVELS- 229438",
+        "HANS TRAVELS I PRIVATE LIMITED- 152258",
+        "ASSOCIATED ROAD CARRIERS LIMITED- 152259",
+        "VRL TRANSPORT- 152274",
+        "SUGAM PARIVAHAN PVT LTD- 152276",
+        "JAIPUR GOLDEN- 152277",
+        "TCI EXPRESS- 208555",
+        "LAXMI BUS SERVICE- 204409",
+        "DHIRU TRANSPORT- 235459",
+        "ORIENT TRANSPORT- 152260",
+        "SELF- 152261",
+        "TCI FREIGHT (A DIVISION OF TRANSPORT CORP. OF INDIA LIMITED)- 152278",
+        "GREAT INDIA ROADWAYS- 152280",
+        "RAIPUR RAIGARH- 169901"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_ddltransportname"
+    },
+    {
+      "label": "ctl00_ContentPlaceHolder1_ddlagentname",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--",
+        "ABHISHEK KUMAR- 154051",
+        "ANUP SHEKHAWAT- 151640",
+        "BALAJEE- 141475",
+        "DHARMVEER SINGH/AGENT- 144994",
+        "DUMMY 1- 242040",
+        "MOHIT RAJPUT- 151641",
+        "MR NAVEEN JAISWAL- 143862",
+        "Rameshwar Parsad Kaushik- 253609",
+        "SANGITA KANWAR- 234738",
+        "SunilKumar- 236137",
+        "YADAVENDRA SINGH- 223492"
+      ],
+      "id": "ctl00_ContentPlaceHolder1_ddlagentname"
+    },
+    {
+      "label": "ctl00_ddlorg",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--",
+        "SHRI BALAJI ALLOYS CORPORATION"
+      ],
+      "id": "ctl00_ddlorg"
+    },
+    {
+      "label": "ctl00_cmbbracnh",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--",
+        "SHRI BALAJI ALLOYS CORPORATION RPR",
+        "SBAC FARM",
+        "SHREE BALAJI ALLOYS CORPORATION HYD",
+        "SHRI BALAJI ALLOYS CORPORATION",
+        "SHRI BALAJI ALLOYS CORPORATION DGP",
+        "SHRI BALAJI ALLOYS CORPORATION IND",
+        "SHRI BALAJI ALLOYS CORPORATION MANDAWA"
+      ],
+      "id": "ctl00_cmbbracnh"
+    },
+    {
+      "label": "ctl00_ddlfinancialYear",
+      "type": "select",
+      "required": false,
+      "placeholder": "",
+      "options": [
+        "--Select--"
+      ],
+      "id": "ctl00_ddlfinancialYear"
+    }
+  ]
+}

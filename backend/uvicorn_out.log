@@ -1,0 +1,5 @@
+INFO:     127.0.0.1:52539 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52539 - "GET /api/ops-board/pending HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52539 - "GET /api/mis/sales-summary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52539 - "GET /api/tally/export-pack HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52539 - "GET / HTTP/1.1" 200 OK

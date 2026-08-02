@@ -1,0 +1,255 @@
+=== MENUS ===
+-- Select Menu -- (value: 0), Admin (value: 1), Master (value: 2), Marketing (value: 4), Order Module (value: 1709), Sales (value: 208), Purchase (value: 6), Production (value: 7), Indents (value: 8), Accounts (value: 13), Store (value: 275), HR (value: 5), Visit (value: 1708), Task (value: 1382), M
+
+=== FEATURES (217) ===
+Create User
+Create Lead Source
+Create Ledger
+Day Book
+Task Assignment
+MIS Report
+Pendig Lead For SalesOrder
+Grade Pay
+Item Wise Stage
+Create Indent
+Tally Error
+Assign User Dashboard
+Stock Register
+Credit Note
+Direct Sales Invoice
+Create Sales Order
+Generate Complain
+User Dashboard
+Party Master
+Create PO
+Dashboard (Overview)
+Request Payment
+Stock Report
+Edit Payment Request
+Sales Pipeline
+Edit New Sales Order
+Edit PO
+Lead Entry
+Debit Note
+Profit & Loss A/c
+Create Profile
+Leave Master
+Task Management
+Indent Approval
+Group Master
+Change Password
+Main Group
+Sub group
+Site Access
+Sales Analysis Report
+Leave Configuration
+Edit Sales Invoice
+Journal
+Balance Sheet
+Lead Management
+Edit Purchase Return
+Complaint Details
+Accounts Dashboard
+Process Payment Request
+Active Bill and Voucher
+Employee Loan Entry
+Create Sale Return
+Register
+Contra
+Salary Head Master
+Tender Details
+Category
+Pending Indent Po
+Ledger Report
+Baltra Ledger
+Executive Location Summary
+Attendance Report
+Payment
+Upload Party Details
+Map Tracking
+Pending Indent For Purchase Requisition
+Create Purchase Return
+Change Employee Mobile No
+Item Master
+Issue Items
+Inventory Dashboard
+Create Mrn
+Buyer outstanding
+Receive Items
+Employee Wise Salary Confirmation
+Physical Stock
+Vendor outstanding
+Unit Master
+Employee Wise Leave Entry
+SalesOrders For Delivery Challan
+Receipt
+Trial Balance
+Create Branch
+Edit Company
+Print Out TypeMaster
+Edit Delivery Challan New
+Purchase Requisition
+Reward outstanding
+Physical Stock Approval
+Process Commission Voucher
+Edit MRN
+Purchase Invoice For Po
+Delete Sales Order
+Country
+Salary Configuration
+State
+Delete Delivery Challan
+Party Outstanding
+Pending Challan For Invoice
+Print DSR
+Create Invoice in Cash
+Payment Request Status
+Cancel Sales Invoice
+City
+Leave Application
+Update Order and Invoice Status
+Party Merge
+Delete MRN
+Payment Followup
+List Of Leave Application
+Lead Report
+Accounts MIS Panel
+Edit Sale Invoice In Cash
+Batch Allocation Report
+Sales MIS Panel
+RFQ Rate Entry
+Whatsapp Login
+All Party Outstanding
+Category Catalouge
+Order Followup
+Add Parameters
+Visit Planner
+Edit Sales Return
+Purchase Requisition for PO
+Pending Challan
+Visit Managment
+Pending Task For Payment
+Inventory MIS Panel
+Process Salary Attendance
+Purchase MIS Panel
+Activate Party For Adjustment
+Loan Approval and payment
+Upload Party
+Followup Report
+Process Profit and Loss
+PO Report
+Party Adjustment
+Supplier Wise Rate
+Salary Approval
+Create MRN (CASH)
+Godown Master
+User Wise Approval
+Admin Dashboard
+Edit MRN (CASH)
+Print Salary Slip
+Landing Cost configuration
+Term And Condition
+Party Wise Item Rate
+Indent For Production Challan
+Create Production Challan
+Party Wise Rate Excel ForMat
+Item Wise Mrp
+Item Wise profit/loss Report
+Stock Reconciliation Report
+Office shift timing
+User Login Log
+Delete Stock Reconciliation
+Call Log Report
+RFQ For Po
+Finance Schedule Entry
+B2B Portal
+Production Challan List
+Sales Return For Delete
+Edit Finance Schedule
+Purchase Return For Delete
+Purchase Order For Delete
+Voucher Approval
+Challan List For Job Work Order
+Vehicle Master
+Edit Job Work Order
+Purchase Requisition Approval
+Expense Approval
+Pending Indent For Issue Material
+Delete Voucher
+Edit Issue Material
+Indent Report
+Assign user Wise Chart
+Alert Configuration
+Party Master Report
+Commission Report
+Item Wise Commission %
+Item Master Report
+Item Issue Report
+Daily Currency Rate
+Alert Master
+Create Currency Name
+Holiday Master
+Download Salary Slip
+Salary Report
+Process Agent Commission
+Sales Invoice
+SMTP Master
+Delete Form Entry
+Employee Master
+Template Master
+Cost Center
+Edit Employee
+Party wise Discount Configuration
+Sales Order Report
+Document Approval
+Update ReOrder Detail
+Doc Print
+Terms and Condition New
+Discount Master
+Group wise Profit Percent
+Area Master
+Create E-invoice
+Merge Item
+Employee Goals
+Merge Account Ledger
+Assign App Menu
+Tally Erp Parent Mapping
+Back Date Entry
+Group wise Catalogue Upload
+Inactive Ledger For Tally
+Inactive Item For Tally
+Performance
+
+=== BUTTONS ===
+Admin
+Master
+Marketing
+Order Module
+Sales
+Purchase
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+×
+💬 Ask Dia
+
+=== HEADINGS ===
+Add / Remove Menu
+Pending
+Sales
+Stock
+Purchase
+Accounts
+Marketing
+Data Summary Report
+Company/Branch Selection

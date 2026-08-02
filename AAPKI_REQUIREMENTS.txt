@@ -1,0 +1,120 @@
+================================================================================
+KANHAERP — AAPKI TARAF SE KYA CHAHIYE (jo AI/dev end se nahi ho sakta)
+================================================================================
+Jab ye items mil jayenge, tab live complete / production go-live wiring ho sakti hai.
+Design shell pehle se FINAL hai — is list se LOOK nahi badlega, sirf functions link honge.
+
+--------------------------------------------------------------------------------
+1) SERVER / HOSTING
+--------------------------------------------------------------------------------
+- Domain name (example: erp.yourcompany.com)
+- VPS / cloud server access (IP, SSH / panel)  OR  aap ka preferred host (AWS / Azure / DigitalOcean / Contabo etc.)
+- SSL / HTTPS (Let’s Encrypt OK, ya aapke certificates)
+
+--------------------------------------------------------------------------------
+2) DATABASE & OPS
+--------------------------------------------------------------------------------
+- Production Postgres connection (ya server pe Postgres install allow)
+- Backup policy: daily backup location (S3 / Drive / NAS)
+- Redis (agar automation queues chahiye) — server pe Redis allow
+
+--------------------------------------------------------------------------------
+3) SECURITY / ADMIN
+--------------------------------------------------------------------------------
+- Strong SECRET_KEY (hum generate kar denge, aap store karenge password manager mein)
+- Real admin email + password (demo admin123 hata denge)
+- Company legal name, GSTIN, address, logo file (PNG/SVG), brand colors (optional)
+- Kaun-kaun roles: Admin / Sales / Purchase / Accountant / HR (names + permissions)
+
+--------------------------------------------------------------------------------
+4) PAYMENTS (agar online payment chahiye)
+--------------------------------------------------------------------------------
+- Razorpay Key ID + Key Secret (live + test)
+- Settlement bank account confirmation
+- Invoice prefix / series rules (INV-2026-… etc.)
+
+--------------------------------------------------------------------------------
+4B) SALARY BANK DISBURSEMENT (live NEFT push)
+--------------------------------------------------------------------------------
+- Company salary payout bank account + corporate NEFT/IMPS API
+  (HDFC/ICICI/Axis corporate banking API docs + credentials)
+  OR payroll provider (RazorpayX / Cashfree Payouts) keys
+- Employee bank account / IFSC collection process (already in HRMS UI)
+
+--------------------------------------------------------------------------------
+4C) E-WAY BILL (NIC live)
+--------------------------------------------------------------------------------
+- GSTIN + GSP provider (ClearTax / IRIS / MasterGST etc.) API credentials
+- E-way enabled on GST portal
+
+--------------------------------------------------------------------------------
+4D) LIVE EMPLOYEE TRACKING (real map)
+--------------------------------------------------------------------------------
+- Google Maps / Mapbox API key
+- Mobile app distribution (Android/iOS) for field GPS pings
+  (API /hrms/tracking/ping already ready)
+
+--------------------------------------------------------------------------------
+5) EMAIL / WHATSAPP / SMS (agar automation reminders chahiye)
+--------------------------------------------------------------------------------
+- SMTP (Gmail App Password / SendGrid / Amazon SES) — host, user, pass, from-email
+- WhatsApp Business API (Meta / provider) — token, phone number ID
+- SMS gateway (optional) — API key
+
+--------------------------------------------------------------------------------
+6) AI (agar real AI chat chahiye, rule-demo se better)
+--------------------------------------------------------------------------------
+- OpenAI / Azure OpenAI / other LLM API key
+- Data policy: company data cloud pe bhej sakte ho ya nahi (yes/no)
+
+--------------------------------------------------------------------------------
+7) DOCUMENTS / FILES
+--------------------------------------------------------------------------------
+- File storage choice: local disk / S3 / Azure Blob
+- Agar S3: bucket name + access keys
+- Max file size policy (e.g. 10MB PDF)
+
+--------------------------------------------------------------------------------
+8) GST / COMPLIANCE (India — jab e-invoice / e-way ready ho)
+--------------------------------------------------------------------------------
+- GST portal credentials / GSP provider (ClearTax / IRIS / etc.) — jab legally ready ho
+- E-invoice enable date / GSTIN verification
+- CA / tax consultant rules for tax accounts mapping (optional but recommended)
+
+--------------------------------------------------------------------------------
+9) HARDWARE / BIOMETRIC (HRMS — optional later)
+--------------------------------------------------------------------------------
+- Biometric device brand + SDK / API docs
+- Attendance push method (API / CSV / vendor cloud)
+
+--------------------------------------------------------------------------------
+10) BUSINESS RULES (short answers enough)
+--------------------------------------------------------------------------------
+- Approval limit: kitne amount pe SO approval (ab demo mein ~5L hardcoded)
+- Financial year start month
+- Default tax % / GST slabs aap use karte ho
+- Multi-branch? kitni branches / warehouses
+- Multi-company? kitni companies
+
+--------------------------------------------------------------------------------
+DEMO ABHI KAISE CHALAYE (USB se)
+--------------------------------------------------------------------------------
+1) Folder: G:\kanha-erp  (ya PC pe copy: C:\Users\HP\Projects\kanha-erp)
+2) Python install + backend folder mein: pip install -r requirements.txt
+3) run.bat  OR  uvicorn app.main:app --host 127.0.0.1 --port 8080
+4) Browser: http://127.0.0.1:8080
+5) Login: admin@kanhaerp.com / admin123
+6) Start Live Flow dikhao
+
+--------------------------------------------------------------------------------
+GO-LIVE FORMULA
+--------------------------------------------------------------------------------
+AAP dete ho (upar list)  +  HUM wire karte hain (APIs, RBAC, payments, AI, upload)
+= FINAL PRODUCTION ERP (same design)
+
+Jo missing rahega, us module ko stub / disable rakh sakte hain — baaki live.
+
+================================================================================
+Saved with project on pen drive: G:\kanha-erp\
+Date: 2026-07-27
+================================================================================

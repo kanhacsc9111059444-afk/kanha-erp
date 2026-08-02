@@ -1,0 +1,6 @@
+﻿KanhaERP FULL RECHECK — 2026-07-28T11:20:11.4792836+05:30
+ROOT CAUSE: frontend/js/app.js line ~1406 had Python comment '# Prevent...' 
+→ SyntaxError: Invalid or unexpected token → entire SPA dead → blank page
+FIX: changed to // comment; cache bump core7
+VERIFY: CDP hasLogin=true appLen=11906 scripts core7
+SERVER: /api/health OK throughout

@@ -1,0 +1,13 @@
+﻿KanhaERP Live Share
+===================
+Link: https://catherine-sending-attachments-steven.trycloudflare.com
+
+Share gate (browser pehle ye maangega):
+  User: viewer
+  Password: KanhaView@2026
+
+ERP login (uske baad):
+  Admin: admin@kanhaerp.com / admin123
+
+PC band / tunnel band = link dead.
+Source folder copy nahi hota over this link.

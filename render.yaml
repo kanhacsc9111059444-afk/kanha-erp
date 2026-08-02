@@ -1,0 +1,21 @@
+# KanhaERP on Render — https://kanhaerp.onrender.com
+# Optional custom domain: erp.kanhaone.com → this service
+services:
+  - type: web
+    name: kanhaerp
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: DEMO_MODE
+        value: "true"
+      - key: APP_NAME
+        value: KanhaERP
+      - key: CORS_ORIGINS
+        value: "https://kanhaerp.onrender.com,https://kanhaone.com,https://erp.kanhaone.com,http://127.0.0.1:8080"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WHATSAPP_VERIFY_TOKEN
+        value: kanha_meta_verify

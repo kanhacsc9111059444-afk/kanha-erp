@@ -1,0 +1,3424 @@
+{
+  "url": "https://erp.sbacindia.in/Master/ItemMasterConfig.aspx",
+  "tabs": [
+    "Add Item",
+    "View Item"
+  ],
+  "fields": [
+    {
+      "label": "Branch Name",
+      "options": [
+        "SHRI BALAJI ALLOYS CORPORATION RPR",
+        "SBAC FARM",
+        "SHREE BALAJI ALLOYS CORPORATION HYD",
+        "SHRI BALAJI ALLOYS CORPORATION",
+        "SHRI BALAJI ALLOYS CORPORATION DGP",
+        "SHRI BALAJI ALLOYS CORPORATION IND",
+        "SHRI BALAJI ALLOYS CORPORATION MANDAWA"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlBranchName",
+      "type": "select",
+      "value": "121"
+    },
+    {
+      "label": "Item Code *",
+      "options": [],
+      "placeholder": "",
+      "required": true,
+      "shortId": "PartNoTextBox",
+      "type": "text",
+      "value": "943"
+    },
+    {
+      "label": "Item Name*",
+      "options": [],
+      "placeholder": "Item Name",
+      "required": true,
+      "shortId": "PartNAmeTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Part Image",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "FileUpload1",
+      "type": "file",
+      "value": ""
+    },
+    {
+      "label": "Select Brand",
+      "options": [
+        "--Select Brand--",
+        "MS PIPE",
+        "ASTRAL",
+        "POWERTECH",
+        "JK LAXMI",
+        "SST SALDU",
+        "MAXIDURA",
+        "JSW",
+        "ASIAN PAINTS",
+        "BOSCO",
+        "JINDAL",
+        "CHHANEL",
+        "…+23"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlbrand",
+      "type": "select",
+      "value": "-1"
+    },
+    {
+      "label": "--Select Brand--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addbrand",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select Brand--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "brandrefresh",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Base Unit*",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": true,
+      "shortId": "unitDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION RPR",
+      "options": [],
+      "placeholder": "Create Unit",
+      "required": false,
+      "shortId": "txtunit",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION RPR",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "btnaddunit",
+      "type": "submit",
+      "value": "Save"
+    },
+    {
+      "label": "Main Group*",
+      "options": [
+        "--Select--",
+        "BAJRI",
+        "BRICKS",
+        "CAST IRON ELECTRODES",
+        "CEMENT",
+        "CONDUIT",
+        "CONSUMABLE",
+        "CPVC",
+        "CUTTING ELECTRODES",
+        "Drain Master",
+        "ELECTRONICS",
+        "HARD FACING ELECTRODES",
+        "…+17"
+      ],
+      "placeholder": "",
+      "required": true,
+      "shortId": "classificationDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "imgmaingroup",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "mgrefresh",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Sub Group",
+      "options": [
+        "--Select--",
+        "CEMENT",
+        "POLL",
+        "GITTI",
+        "JK SUPER",
+        "FABT",
+        "RD BUSH",
+        "PLUG THREADED",
+        "PTFE TAPE",
+        "METAL CLAMP",
+        "PIPE CTS SDR",
+        "BEND",
+        "…+155"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "subDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addsubgroup",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "sgregresh",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Category/Make",
+      "options": [
+        "--Select--",
+        "HARD FACING",
+        "Mild Steel",
+        "CAST IRON",
+        "WELDING ELECTRODES",
+        "Stainless steel",
+        "JOINING",
+        "MaxiDura",
+        "LOCAL",
+        "BERGER",
+        "acc cement",
+        "Welding electrods"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "categoryDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addcategory",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshcategory",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "HSN Code",
+      "options": [],
+      "placeholder": "HSN Code ",
+      "required": false,
+      "shortId": "txthsn",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Item Description",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtitemdesc",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Purchase Default Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlPurDefUnit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addpunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshpunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Sale Default Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlSaleDefUnit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addsaleunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshsunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Color",
+      "options": [
+        "--Select--"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlcolor",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addcolor",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "imgcolorref",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Size",
+      "options": [
+        "--Select--",
+        "3.15x450MM",
+        "5X450mm",
+        "2.5X350mm",
+        "4X350mm",
+        "9'",
+        "8.5'",
+        "3.15x350mm",
+        "90MM",
+        "5X350MM",
+        "4X450mm",
+        "90 OD",
+        "…+13"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlsize",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addsize",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "imgsizeref",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION RPR",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "0",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SBAC FARM",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "1",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SHREE BALAJI ALLOYS CORPORATION HYD",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "2",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "3",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION DGP",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "4",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION IND",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "5",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION MANDAWA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "6",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Other Section",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkotherdiv",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Upload Image",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "FileUpload2",
+      "type": "file",
+      "value": ""
+    },
+    {
+      "label": "Same as Item Name",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "btnupload",
+      "type": "submit",
+      "value": "Upload"
+    },
+    {
+      "label": "Same as Item Name",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chksmaeparent",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Same as Item Name",
+      "options": [],
+      "placeholder": "Parent Item Name",
+      "required": false,
+      "shortId": "txtparentitem",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Parent Item Code",
+      "options": [],
+      "placeholder": "Parent Item Code",
+      "required": false,
+      "shortId": "txtparentcode",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Gross Weight",
+      "options": [],
+      "placeholder": "Gross Weight",
+      "required": false,
+      "shortId": "txtgrosswt",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Net Weight",
+      "options": [],
+      "placeholder": "Net Weight",
+      "required": false,
+      "shortId": "txtnetwt",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Cartoon Weight",
+      "options": [],
+      "placeholder": "Cartoon Weight",
+      "required": false,
+      "shortId": "txtcartoonwt",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Standard Packaging Quantity",
+      "options": [],
+      "placeholder": "Standard Packaging Quantity",
+      "required": false,
+      "shortId": "txtstdqty",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Sub Item",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkSubItem",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Subitem Required*",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "placeholder": "",
+      "required": true,
+      "shortId": "ddlsubitemreqired",
+      "type": "select",
+      "value": "Yes"
+    },
+    {
+      "label": "Area calculationrequired",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlarearequired",
+      "type": "select",
+      "value": "Yes"
+    },
+    {
+      "label": "Formula Reqd*",
+      "options": [
+        "No",
+        "Yes"
+      ],
+      "placeholder": "",
+      "required": true,
+      "shortId": "ddlformularequired",
+      "type": "select",
+      "value": "No"
+    },
+    {
+      "label": "Formula",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "TXTFORMULA",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Conversion Factor",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkConversion",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Base Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlBaseUnit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addbaseunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshbunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Conversion Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlConversion",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addconunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshcunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Value",
+      "options": [],
+      "placeholder": "Value",
+      "required": false,
+      "shortId": "txtValue",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Conversion Factor",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "btnAddConversion",
+      "type": "submit",
+      "value": "Add"
+    },
+    {
+      "label": "Item Specification",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkbox",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Item Specification",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtspec",
+      "type": "textarea",
+      "value": ""
+    },
+    {
+      "label": "Item Classification",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkitemclass",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Rack No",
+      "options": [],
+      "placeholder": "Rack No",
+      "required": false,
+      "shortId": "RacknoTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Bin No",
+      "options": [],
+      "placeholder": "Bin No",
+      "required": false,
+      "shortId": "binTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Purchase Name",
+      "options": [],
+      "placeholder": "Purchase Name",
+      "required": false,
+      "shortId": "purchasenameTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Purchase Code",
+      "options": [],
+      "placeholder": "Purchase Code",
+      "required": false,
+      "shortId": "purchasecodeTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Bar Code",
+      "options": [],
+      "placeholder": "Bar Code",
+      "required": false,
+      "shortId": "barcodeTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Finished Goods",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ManufacturedRadioButton",
+      "type": "radio",
+      "value": true
+    },
+    {
+      "label": "Raw Material",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "purchaseRadioButton",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "label": "Semi finished",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "AssembledRadioButton",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "label": "Powder coated",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rdopower",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "label": "Tax Duty Details",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chktaxduty",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Tarrif Classification",
+      "options": [
+        "--Select--"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "tarrifDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "Duty",
+      "options": [
+        "--Select--"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "dutyDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "Commodity Code",
+      "options": [],
+      "placeholder": "Commodity Code",
+      "required": false,
+      "shortId": "commodityTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Dimension:",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkdimension",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Length",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "lengthTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Width",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "widthTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Height",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "heightTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Weight",
+      "options": [],
+      "placeholder": "Weight",
+      "required": false,
+      "shortId": "weightTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Dimension",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "dimensionDropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "Volumetric Weight",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtvolweight",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Stock Value",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkstokevalue",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "unit1DropDownList",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "Closing Stock",
+      "options": [],
+      "placeholder": "Closing Stock",
+      "required": false,
+      "shortId": "closingTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Opening Stock",
+      "options": [],
+      "placeholder": "Opening Stock",
+      "required": false,
+      "shortId": "openingstockTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Monthly Consumption",
+      "options": [],
+      "placeholder": "Monthly Consumption",
+      "required": false,
+      "shortId": "txtMonCon",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Re order level",
+      "options": [],
+      "placeholder": "Re order level",
+      "required": false,
+      "shortId": "reorderTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Minimum Stock",
+      "options": [],
+      "placeholder": "Minimum Stock",
+      "required": false,
+      "shortId": "minimumTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Maximum Stock",
+      "options": [],
+      "placeholder": "Maximum Stock",
+      "required": false,
+      "shortId": "maximumTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Minimum Order Quantity",
+      "options": [],
+      "placeholder": "Minimum Order Quantity",
+      "required": false,
+      "shortId": "txtminorderqty",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Rate List",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkratelist",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Purchase",
+      "options": [],
+      "placeholder": "Purchase",
+      "required": false,
+      "shortId": "purchaseTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "MRP",
+      "options": [],
+      "placeholder": "MRP",
+      "required": false,
+      "shortId": "mRPTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "GST(%)",
+      "options": [],
+      "placeholder": "GST(%)",
+      "required": false,
+      "shortId": "vatTextBox",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "GST Include",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "vatincludeCheckBox",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Date",
+      "options": [
+        "dd",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "…+20"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlDay",
+      "type": "select",
+      "value": "2"
+    },
+    {
+      "label": "Exporter GST(%)",
+      "options": [],
+      "placeholder": "Exporter GST(%)",
+      "required": false,
+      "shortId": "txtexportergst",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Exporter GST Include",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkexporter",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bom Rate",
+      "options": [],
+      "placeholder": "Bom Rate",
+      "required": false,
+      "shortId": "txtbomrate",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Active",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ActiveRadioButton",
+      "type": "radio",
+      "value": true
+    },
+    {
+      "label": "NonActive",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "NonActiveRadioButton",
+      "type": "radio",
+      "value": false
+    },
+    {
+      "label": "Country List",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkcountrylist",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Oman",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "7",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "TANZANIA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "8",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "United States of America",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "9",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "IRAN",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "10",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "AUSTRALIA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "11",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "SOUTH AFRICA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "12",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "UGANDA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "13",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Singapore",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "14",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kenya",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "15",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "UKRAINE",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "16",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "rajbiraj",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "17",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "AMERICA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "18",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bangladesh",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "19",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Canada",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "20",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "England",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "21",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "London",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "22",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "FRANCE",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "23",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Spain",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "24",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Indonesia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "25",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Pakistan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "26",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Brazil",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "27",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Nigeria",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "28",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mexico",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "29",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Japan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "30",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Philippines",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "31",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Egypt",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "32",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Vietnam",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "33",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "DR Congo",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "34",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Turkey",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "35",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Thailand",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "36",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "United Kingdom",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "37",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Italy",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "38",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Myanmar",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "39",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "South Korea",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "40",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Saudi Arabia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "41",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mozambique",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "42",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Venezuela",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "43",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Antigua and Barbuda",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "44",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Armenia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "45",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Austria",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "46",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Azerbaijan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "47",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "The Bahamas",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "48",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bahrain",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "49",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Barbados",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "50",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Belarus",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "51",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Belize",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "52",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Benin",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "53",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bhutan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "54",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bolivia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "55",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bosnia and Herzegovina",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "56",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Botswana",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "57",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Brunei",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "58",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Burundi",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "59",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Chad",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "60",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Comoros",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "61",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Cuba",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "62",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Cyprus",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "63",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Czech Republic",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "64",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Denmark",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "65",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Djibouti",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "66",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Dominica",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "67",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "East Timor (Timor-Leste)",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "68",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "El Salvador",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "69",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Eritrea",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "70",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Estonia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "71",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Eswatini",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "72",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Fiji",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "73",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Finland",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "74",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Gabon",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "75",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "P B",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "76",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "India",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "77",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "GENEVA",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "78",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Ethiopia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "79",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Colombia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "80",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Argentina",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "81",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Algeria",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "82",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Sudan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "83",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Iraq",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "84",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Afghanistan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "85",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Poland",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "86",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Morocco",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "87",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Belgium",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "88",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Bulgaria",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "89",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Burkina Faso",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "90",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Cabo Verde",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "91",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Cambodia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "92",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Cameroon",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "93",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Central African Republic",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "94",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Chile",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "95",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Costa Rica",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "96",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Côte d’Ivoire",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "97",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Croatia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "98",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Dominican Republic",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "99",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Ecuador",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "100",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Equatorial Guinea",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "101",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "The Gambia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "102",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Georgia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "103",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Greece",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "104",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Grenada",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "105",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Guatemala",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "106",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Guinea-Bissau",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "107",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Guyana",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "108",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Haiti",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "109",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Honduras",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "110",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Hungary",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "111",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Iceland",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "112",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Ireland",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "113",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Israel",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "114",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Jamaica",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "115",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Jordan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "116",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kazakhstan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "117",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kiribati",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "118",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kosovo",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "119",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kuwait",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "120",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Kyrgyzstan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "121",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Laos",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "122",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Latvia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "123",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Lebanon",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "124",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Luxembourg",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "125",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Lithuania",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "126",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Liechtenstein",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "127",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Libya",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "128",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Liberia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "129",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Lesotho",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "130",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Malawi",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "131",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Maldives",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "132",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mali",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "133",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Malta",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "134",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Marshall Islands",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "135",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mauritania",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "136",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mauritius",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "137",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Micronesia, Federated States of",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "138",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Moldova",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "139",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Monaco",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "140",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Mongolia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "141",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Montenegro",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "142",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Myanmar (Burma)",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "143",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Paraguay",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "144",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Portugal",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "145",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Qatar",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "146",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Rwanda",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "147",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Saint Kitts and Nevis",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "148",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Saint Lucia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "149",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Saint Vincent and the Grenadines",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "150",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Samoa",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "151",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Uzbekistan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "152",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Peru",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "153",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Angola",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "154",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Malaysia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "155",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Ghana",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "156",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Yemen",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "157",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "North Korea",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "158",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Madagascar",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "159",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Albania",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "160",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Andorra",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "161",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Namibia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "162",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Nauru",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "163",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Netherlands",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "164",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "New Zealand",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "165",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Nicaragua",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "166",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Niger",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "167",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "North Macedonia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "168",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Norway",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "169",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Palau",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "170",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Panama",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "171",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Papua New Guinea",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "172",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Romania",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "173",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "San Marino",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "174",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Sao Tome and Principe",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "175",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Senegal",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "176",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Serbia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "177",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Seychelles",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "178",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Sierra Leone",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "179",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Slovakia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "180",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Slovenia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "181",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Solomon Islands",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "182",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Somalia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "183",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Sudan, South",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "184",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Suriname",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "185",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Sweden",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "186",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Switzerland",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "187",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Syria",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "188",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Taiwan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "189",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Tajikistan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "190",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Togo",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "191",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Tonga",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "192",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Trinidad and Tobago",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "193",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Tunisia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "194",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Turkmenistan",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "195",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Tuvalu",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "196",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "United Arab Emirates( Dubai)",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "197",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Uruguay",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "198",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Vanuatu",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "199",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Vatican City",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "200",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Zambia",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "201",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "Zimbabwe",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "202",
+      "type": "checkbox",
+      "value": false
+    },
+    {
+      "label": "India",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addcountry",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "India",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshcountry",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Vendor Details",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "chkvendorlist",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Vendor Name",
+      "options": [
+        "--Select--",
+        "A.J. FABRICATION TRADERS",
+        "ACC LIMITED",
+        "AIRTEL CORPORATE(9893395001)",
+        "AIRTEL POSTPAID(1168781776)",
+        "AIRTEL WIFI",
+        "AIRTEL WIFI INDORE",
+        "AKASH TYRE",
+        "ALFA MOBILE",
+        "AMBIKA ENTERPRISES BIKANER",
+        "AMERICAN SECURITY SYSTEM",
+        "AMIT (AUTO)",
+        "…+163"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlvendorname",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addvendor",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshvendor",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Contact No.",
+      "options": [],
+      "placeholder": "Contact No.",
+      "required": false,
+      "shortId": "txtmobile",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Vendor Details",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "btnAdd",
+      "type": "submit",
+      "value": "Add"
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "PackingInstruction",
+      "type": "checkbox",
+      "value": true
+    },
+    {
+      "label": "Packing Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlPackingUnit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addpkgunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshpkgunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Serial No",
+      "options": [
+        "--Select--"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlSerialNo",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addserial",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshserial",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Qty",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtQty",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlqtyunit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rfqtyunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Weight",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtWeight",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlweightunit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rfweightunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Height",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtHeight",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlheightunit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rfheightunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Width",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtWidth",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlwidthunit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rfwidthunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Length",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "txtLength",
+      "type": "text",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [
+        "--Select--",
+        "BAG",
+        "NOS",
+        "BOX",
+        "MTR",
+        "PCS",
+        "MT",
+        "BUNDLE",
+        "KGS",
+        "COIL",
+        "QTL",
+        "PACKET",
+        "TIN",
+        "SQF",
+        "LTR"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddllengthunit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "rflengthunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "From Unit",
+      "options": [
+        "--Select--",
+        "BAG",
+        "BOX",
+        "BUNDLE",
+        "COIL",
+        "KGS",
+        "LTR",
+        "MT",
+        "MTR",
+        "NOS",
+        "PACKET",
+        "PCS",
+        "QTL",
+        "SQF",
+        "TIN"
+      ],
+      "placeholder": "",
+      "required": false,
+      "shortId": "ddlFromUnit",
+      "type": "select",
+      "value": "0"
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "addfromunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "--Select--",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "refreshfromunit",
+      "type": "image",
+      "value": ""
+    },
+    {
+      "label": "Packing Instruction",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "btnAddPacking",
+      "type": "submit",
+      "value": "Add"
+    },
+    {
+      "label": "SHRI BALAJI ALLOYS CORPORATION RPR",
+      "options": [],
+      "placeholder": "",
+      "required": false,
+      "shortId": "SubmitButton",
+      "type": "submit",
+      "value": "Submit"
+    }
+  ]
+}

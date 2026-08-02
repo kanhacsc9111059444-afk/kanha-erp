@@ -1,0 +1,46 @@
+========================================
+  KanhaERP — SIRF PEN DRIVE SE CHALAO
+========================================
+
+Poora ERP ab yahan hai:
+
+  E:\KanhaERP-Portable\
+
+Desktop / OneDrive pe folders mat rakho.
+C: Projects copy sirf backup / coding ke liye ho sakta hai —
+  DAILY WORK = pen drive (E:).
+
+----------------------------------------
+HAR BAAR START
+----------------------------------------
+1) Pen drive (E:) lagao
+2) File Explorer → E:\KanhaERP-Portable\
+3) Double-click:  START_KANHA.bat
+4) Browser: http://127.0.0.1:8080
+
+Pehli baar (ya naya PC): pehle SETUP_PORTABLE.bat
+
+----------------------------------------
+DATA KAHAN?
+----------------------------------------
+DB + uploads + backups:
+
+  E:\KanhaERP-Portable\data\
+
+Yeh Desktop pe nahi jaata — load nahi padta.
+
+----------------------------------------
+LOGIN
+----------------------------------------
+  admin@kanhaerp.com  / admin123
+  sales@kanhaerp.com  / sales123
+  accounts@kanhaerp.com / accounts123
+
+----------------------------------------
+DESKTOP CLEAN
+----------------------------------------
+OneDrive Desktop pe purane kanhaos-*.zip / New folder
+delete kar sakte ho — KanhaERP unme nahi hai.
+
+KanhaERP ka master copy = E:\KanhaERP-Portable only.
+========================================

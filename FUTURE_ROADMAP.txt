@@ -1,0 +1,192 @@
+================================================================================
+KANHAERP — FUTURE ROADMAP & GO-LIVE PLANNING
+================================================================================
+Design shell = FINAL (UI look change nahi hoga)
+Is document mein bataya gaya hai: kya abhi ready hai, kya miss hai, aur future mein
+kis order mein wire karna chahiye taaki production ERP smoothly chale.
+
+Related: AAPKI_REQUIREMENTS.txt (aapko kya dena hai — keys, hosting, rules)
+
+--------------------------------------------------------------------------------
+ABHI KYA READY HAI (DEMO / SHELL COMPLETE)
+--------------------------------------------------------------------------------
+[✓] 19+ modules UI — glass theme, 8 color presets, mobile nav, Kanha Core AI orb
+[✓] Live Flow — Lead → Quotation → Sales Order → Delivery + Invoice + GL + stock
+[✓] Go-live hardening — rate-limit login, password policy, hard RBAC middleware
+[✓] White-label brand API + Settings control center + DB backup
+[✓] Integration adapters (WhatsApp/Razorpay/GSP/LLM) — live when .env keys set
+[✓] Agent scheduler (stock/compliance; cash opt-in)
+[✓] Kanha Agents — Cash (WA chase) · Stock (draft PO) · Compliance (IRN/e-Way)
+[✓] WhatsApp Business OS — inbound ORDER/YES/NO/PAY/STOCK → ERP actions
+[✓] India Compliance Copilot — invoice GST / e-Invoice / e-Way score + auto-fix
+[✓] Scan Billing (POS) — barcode/SKU + camera scan → GST invoice + stock + cash/UPI
+[✓] Product barcodes + printable labels + Inventory barcode shelf
+[✓] RFID Warehouse — EPC tags, inbound/outbound/locate, scan log
+[✓] WhatsApp auto follow-ups — leads + overdue → outbox (Meta API later)
+[✓] Hard RBAC — role permissions on sensitive APIs + nav filter
+[✓] Live Automation Hub — Run low-stock→draft PO + overdue + WhatsApp
+[✓] CRM, Sales, Purchase, Inventory, Accounting — real data + actions
+[✓] HRMS — payroll PF/ESIC, salary disburse batch, expenses approve/reject, leaves
+[✓] Field GPS tracking API + simulate, e-way register (demo), notifications bell
+[✓] Module on/off registry, custom fields, roles/workflows seed, audit view
+[✓] Mobile app download badges (Play/App Store slots), PWA manifest
+[✓] Docker + Postgres path, smoke test script, run.bat USB-friendly
+
+--------------------------------------------------------------------------------
+PHASE 0 — GO-LIVE BLOCKERS (sabse pehle, production se pehle)
+--------------------------------------------------------------------------------
+Priority: CRITICAL | Timeline: Week 1–2 after you provide hosting + keys
+
+1. SECURITY HARDENING
+   - Change SECRET_KEY + admin password (remove admin123)
+   - HTTPS + lock CORS to your domain only
+   - Rate limiting on login API
+   - Password policy + optional 2FA for admin
+
+2. RBAC ENFORCEMENT (highly required)
+   - Abhi: koi bhi logged-in user sab kuch kar sakta hai
+   - Live: har API route pe permission check (sales.*, hrms.*, etc.)
+   - UI: disabled modules + role-based menu hide
+   - User CRUD: add/edit employees as system users
+
+3. DATABASE PRODUCTION
+   - SQLite → Postgres (DATABASE_URL)
+   - Alembic migrations (create_all() hatao)
+   - Daily backup script → S3 / Drive / NAS
+
+4. AUDIT TRAIL COMPLETE
+   - Abhi: login, modules, lead, payment, stock, leave
+   - Live: har write — payroll, expense, SO approval, invoice void, etc.
+
+--------------------------------------------------------------------------------
+PHASE 1 — CORE BUSINESS (highly required for daily ops)
+--------------------------------------------------------------------------------
+Priority: HIGH | Timeline: Week 2–6
+
+5. APPROVAL WORKFLOWS (SO / PO / expenses)
+   - Seeded workflows ko enforce karo (amount thresholds aap batayenge)
+   - Pending approvals dashboard + email/WhatsApp notify
+   - Multi-level: Manager → Director → CFO
+
+6. DOCUMENT MANAGEMENT
+   - File upload (PDF, images) — S3 ya local disk
+   - Link to invoice, employee, ticket, project
+   - Version + expiry (GST certs, contracts)
+
+7. INVOICE & PRINTING
+   - PDF template with your logo, GSTIN, HSN
+   - E-invoice via GSP (jab legally ready)
+   - Credit note / debit note flow
+
+8. REPORTS (12 abhi stub)
+   - sales_by_customer, balance_sheet, low_stock, payroll_register, etc.
+   - Export Excel / PDF
+   - Scheduled email reports (cron)
+
+9. INVENTORY DEPTH
+   - Batch / serial tracking (pharma, electronics)
+   - Multi-warehouse transfer UI
+   - Reorder alerts — Automation Hub "Run" creates draft PO (Redis scheduler later)
+
+--------------------------------------------------------------------------------
+PHASE 2 — INTEGRATIONS (keys aap doge — AAPKI_REQUIREMENTS.txt)
+--------------------------------------------------------------------------------
+Priority: HIGH for scale | Timeline: Week 4–10
+
+10. PAYMENTS — Razorpay live
+    - Invoice pay link, webhook confirm, auto-reconcile GL
+
+11. SALARY DISBURSEMENT — NEFT/IMPS
+    - Corporate bank API OR RazorpayX / Cashfree Payouts
+    - UTR sync back to payroll lines
+
+12. E-WAY / E-INVOICE — GSP (ClearTax / IRIS / MasterGST)
+    - NIC push, cancel, extend validity
+    - IRN on B2B invoices
+
+13. COMMS AUTOMATION
+    - SMTP — invoice email, payment reminder, leave approval
+    - WhatsApp Business API — order confirm, delivery update
+    - SMS gateway (optional OTP)
+
+14. REAL AI — Kanha Core
+    - OpenAI / Azure OpenAI with company data policy
+    - RAG on your products, policies, SOPs
+    - Purchase suggest, forecast, natural language reports
+
+15. MAPS — Field tracking
+    - Google Maps / Mapbox live layer on HRMS page
+    - Geofence alerts (left territory)
+
+--------------------------------------------------------------------------------
+PHASE 3 — SCALE & MULTI-ENTITY (future growth)
+--------------------------------------------------------------------------------
+Priority: MEDIUM | Timeline: Month 3–6
+
+16. MULTI-COMPANY / MULTI-BRANCH
+    - Schema ready (company_id) — UI for switch + consolidated reports
+    - Inter-company billing
+
+17. CUSTOMER / VENDOR PORTAL
+    - API exists — frontend for quote accept, invoice pay, ticket raise
+
+18. MOBILE APPS (native)
+    - Android + iOS — same JWT login
+    - Offline expense capture, GPS background ping
+    - Push notifications (FCM / APNs)
+
+19. MANUFACTURING DEPTH
+    - MRP, capacity planning, shop floor tablet UI
+    - Quality CAPA workflow with photos
+
+20. BI & DATA WAREHOUSE
+    - Connect to Power BI / Metabase
+    - Real-time KPI streaming
+
+--------------------------------------------------------------------------------
+PHASE 4 — OPS & ENTERPRISE (long term)
+--------------------------------------------------------------------------------
+Priority: LOW–MEDIUM | Timeline: Month 6+
+
+21. Redis + Celery — automation jobs, report queue, email queue
+22. Biometric attendance SDK integration
+23. RFID warehouse scanning (barcode POS / Scan Billing already live)
+24. API webhooks for third-party tools (Zapier, Tally sync)
+25. SOC2-style logging, penetration test, DR drill
+26. Multi-language (Hindi UI labels optional)
+27. pytest + CI/CD (GitHub Actions) on every deploy
+
+--------------------------------------------------------------------------------
+RECOMMENDED GO-LIVE ORDER (practical)
+--------------------------------------------------------------------------------
+Step 1: Hosting + Postgres + SSL + new admin password
+Step 2: RBAC + user roles (Sales / Purchase / HR / Accounts)
+Step 3: Live Flow modules you use daily (CRM → Invoice)
+Step 4: Razorpay + invoice PDF (if online payment needed)
+Step 5: HRMS payroll + bank disburse (if salary module needed)
+Step 6: E-way when logistics starts
+Step 7: Mobile app + GPS when field team scales
+Step 8: AI + automation when process mature
+
+Jo module abhi nahi chahiye — Admin mein disable rakho. Baaki live.
+
+--------------------------------------------------------------------------------
+COST / EFFORT HINT (planning ke liye)
+--------------------------------------------------------------------------------
+- Phase 0 alone: ~1–2 weeks dev (security + RBAC + Postgres)
+- Phase 1: ~3–4 weeks (documents, reports, approvals)
+- Each integration (Razorpay, GSP, bank): ~3–7 days after keys mil jayein
+- Native mobile apps: separate project ~6–10 weeks (API already 70% ready)
+
+--------------------------------------------------------------------------------
+FILES REFERENCE
+--------------------------------------------------------------------------------
+AAPKI_REQUIREMENTS.txt     — aap kya provide karenge
+FUTURE_ROADMAP.txt         — ye file (kab kya wire hoga)
+frontend/js/app.js         — UI shell (final)
+backend/app/api/           — APIs to wire integrations
+backend/scripts/smoke_test.py — regression after each phase
+
+================================================================================
+Updated: 2026-07-27 | KanhaERP v1.0.0 shell final
+================================================================================

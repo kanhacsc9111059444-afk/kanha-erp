@@ -1,0 +1,37 @@
+{
+  "url": "https://erp.sbacindia.in/Balaji/BalajiPartymaster.aspx",
+  "title": "Welcome to Digital CRM",
+  "heads": [
+    "Add / Remove Menu",
+    "Party Master",
+    "Company/Branch Selection"
+  ],
+  "fields": [
+    {
+      "disabled": false,
+      "id": "ctl00_dddlmenu",
+      "label": "",
+      "name": "ctl00$dddlmenu",
+      "options": [
+        "-- Select Menu --",
+        "Admin",
+        "Master",
+        "Marketing",
+        "Order Module",
+        "Sales",
+        "Purchase",
+        "Production",
+        "Indents",
+        "Accounts",
+        "Store",
+        "HR",
+        "Visit",
+        "Task",
+        "MIS"
+      ],
+      "required": false,
+      "tag": "select",
+      "type": "select"
+    }
+  ]
+}
