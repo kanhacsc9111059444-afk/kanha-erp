@@ -393,6 +393,12 @@ class EmpIn(BaseModel):
     pincode2: str = ""
     owner_name: str = ""
     owner_phone: str = ""
+    photo_url: str = ""
+    sign_url: str = ""
+    aadhaar_file: str = ""
+    pan_file: str = ""
+    licence_file: str = ""
+    voter_file: str = ""
     custom: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -450,6 +456,12 @@ def create_emp(body: EmpIn, user: CurrentUser, db: DbDep) -> dict:
         "pincode2",
         "owner_name",
         "owner_phone",
+        "photo_url",
+        "sign_url",
+        "aadhaar_file",
+        "pan_file",
+        "licence_file",
+        "voter_file",
     )
     custom_payload = {k: data.pop(k, "") for k in custom_keys}
     data["custom"] = {
@@ -567,6 +579,12 @@ def update_emp(employee_id: int, body: EmpIn, user: CurrentUser, db: DbDep) -> d
         "pincode2",
         "owner_name",
         "owner_phone",
+        "photo_url",
+        "sign_url",
+        "aadhaar_file",
+        "pan_file",
+        "licence_file",
+        "voter_file",
     )
     for k in custom_keys:
         if k in data:
@@ -823,6 +841,82 @@ def decide_leave(leave_id: int, body: LeaveDecideIn, user: CurrentUser, db: DbDe
     )
     db.commit()
     return {"ok": True, "status": row.status}
+
+
+@router.get("/hrms/leave-balances")
+def leave_balances(user: CurrentUser, db: DbDep, month: str | None = None, employee_id: int | None = None) -> dict:
+    """Employee-wise EL/CL monthly leave balance grid (SBAC EmpWiseLeaveEntry style)."""
+    from calendar import monthrange
+
+    period = (month or date.today().strftime("%Y-%m")).strip()
+    try:
+        y, m = int(period[:4]), int(period[5:7])
+    except Exception:
+        y, m = date.today().year, date.today().month
+        period = f"{y:04d}-{m:02d}"
+    start = date(y, m, 1)
+    end = date(y, m, monthrange(y, m)[1])
+    emps = db.query(Employee).filter(Employee.company_id == user.company_id, Employee.active.is_(True))
+    if employee_id:
+        emps = emps.filter(Employee.id == employee_id)
+    emps = emps.order_by(Employee.full_name).all()
+    leaves = (
+        db.query(LeaveRequest)
+        .filter(
+            LeaveRequest.company_id == user.company_id,
+            LeaveRequest.status == "approved",
+            LeaveRequest.from_date <= end,
+            LeaveRequest.to_date >= start,
+        )
+        .all()
+    )
+    # Annual entitlements (customizable later via company settings)
+    entitlement = {"casual": 12, "earned": 15, "sick": 6, "el": 15, "cl": 12}
+
+    def days_in_month(lv: LeaveRequest) -> float:
+        a = max(lv.from_date, start)
+        b = min(lv.to_date, end)
+        if b < a:
+            return 0
+        return float((b - a).days + 1)
+
+    rows = []
+    for e in emps:
+        used = {"casual": 0.0, "earned": 0.0, "sick": 0.0, "unpaid": 0.0, "comp_off": 0.0}
+        for lv in leaves:
+            if lv.employee_id != e.id:
+                continue
+            lt = (lv.leave_type or "casual").lower()
+            if lt in ("el", "earned"):
+                used["earned"] += days_in_month(lv)
+            elif lt in ("cl", "casual"):
+                used["casual"] += days_in_month(lv)
+            elif lt in used:
+                used[lt] += days_in_month(lv)
+            else:
+                used["casual"] += days_in_month(lv)
+        custom = e.custom if isinstance(getattr(e, "custom", None), dict) else {}
+        bal = custom.get("leave_balance") or {}
+        cl_open = float(bal.get("cl") or entitlement["cl"])
+        el_open = float(bal.get("el") or entitlement["el"])
+        rows.append(
+            {
+                "employee_id": e.id,
+                "code": e.code,
+                "name": e.full_name,
+                "department": e.department,
+                "month": period,
+                "cl_opening": cl_open,
+                "cl_used": round(used["casual"], 1),
+                "cl_balance": round(cl_open - used["casual"], 1),
+                "el_opening": el_open,
+                "el_used": round(used["earned"], 1),
+                "el_balance": round(el_open - used["earned"], 1),
+                "sick_used": round(used["sick"], 1),
+                "unpaid_used": round(used["unpaid"], 1),
+            }
+        )
+    return {"ok": True, "month": period, "rows": rows}
 
 
 @router.get("/hrms/payroll")
@@ -1712,8 +1806,11 @@ async def upload_document(
     stamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     dest = uploads / f"{stamp}_{safe}"
     content = await file.read()
-    if len(content) > 10 * 1024 * 1024:
-        raise HTTPException(400, "Max 10MB")
+    from app.core.config import settings as _settings
+
+    max_mb = int(getattr(_settings, "upload_max_mb", 15) or 15)
+    if len(content) > max_mb * 1024 * 1024:
+        raise HTTPException(400, f"Max {max_mb}MB")
     dest.write_bytes(content)
     rel = f"/uploads/{user.company_id}/{dest.name}"
     row = Document(

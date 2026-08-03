@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.api import advanced, books, bridges, core, extended, ha, ops, parity, rules, trading, watch
+from app.api import advanced, books, bridges, core, extended, ha, masters, ops, parity, rules, trading, watch
 from app.core.blackout_middleware import BlackoutLockdownMiddleware
 from app.core.config import DATA, SECRET_AUTO_GENERATED, settings
 from app.core.database import Base, SessionLocal, engine
@@ -60,6 +60,7 @@ def create_app() -> FastAPI:
     app.include_router(ha.router)
     app.include_router(rules.router)
     app.include_router(watch.router)
+    app.include_router(masters.router)
 
     @app.on_event("startup")
     def _startup() -> None:

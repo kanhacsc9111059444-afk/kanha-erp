@@ -460,13 +460,17 @@ def list_einvoices(user: CurrentUser, db: DbDep) -> list:
 
 
 @router.post("/logistics/einvoice/generate")
-def generate_einvoice(user: CurrentUser, db: DbDep) -> dict:
-    inv = db.query(Invoice).filter(Invoice.company_id == user.company_id).order_by(Invoice.id.desc()).first()
+def generate_einvoice(user: CurrentUser, db: DbDep, invoice_id: int | None = None) -> dict:
+    q = db.query(Invoice).filter(Invoice.company_id == user.company_id, Invoice.invoice_type != "credit")
+    if invoice_id:
+        inv = q.filter(Invoice.id == invoice_id).first()
+    else:
+        inv = q.order_by(Invoice.id.desc()).first()
     if not inv:
         raise HTTPException(404, "No invoice")
     existing = db.query(Einvoice).filter(Einvoice.invoice_id == inv.id).first()
     if existing:
-        return {"id": existing.id, "irn": existing.irn, "status": existing.status, "note": "Already generated", "live": False}
+        return {"id": existing.id, "irn": existing.irn, "status": existing.status, "note": "Already generated", "live": False, "invoice_id": inv.id, "invoice_number": inv.number}
     stamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     local_irn = f"DEMO-IRN-{inv.number}-{stamp}"[-64:]
     row = Einvoice(
@@ -525,6 +529,8 @@ def generate_einvoice(user: CurrentUser, db: DbDep) -> dict:
         "status": row.status,
         "live": bool(gsp.get("live") and gsp.get("status") == "ok"),
         "gsp": gsp,
+        "invoice_id": inv.id,
+        "invoice_number": inv.number,
         "message": "Live IRN from GSP" if (gsp.get("live") and gsp.get("status") == "ok") else "Local demo IRN (set GSP keys for live)",
     }
 

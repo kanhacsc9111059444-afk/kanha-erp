@@ -177,6 +177,7 @@ def list_customers(user: CurrentUser, db: DbDep) -> list:
             "credit_limit": float(getattr(c, "credit_limit", 0) or 0),
             "price_list_code": getattr(c, "price_list_code", "STANDARD") or "STANDARD",
             "region": getattr(c, "region", "") or "",
+            "active": bool(getattr(c, "active", True)),
         }
         for c in rows
     ]
@@ -271,6 +272,31 @@ def update_customer(customer_id: int, body: CustomerIn, user: CurrentUser, db: D
     out = _customer_out(row)
     out["message"] = f"Party {row.code} updated"
     return out
+
+
+@router.delete("/crm/customers/{customer_id}")
+def delete_customer(customer_id: int, user: CurrentUser, db: DbDep) -> dict:
+    """SBAC-style Delete — soft deactivate (no hard wipe of history)."""
+    from app.core.deps import assert_perm
+
+    assert_perm(user, db, "crm.*", "settings.*")
+    row = db.query(Customer).filter(Customer.id == customer_id, Customer.company_id == user.company_id).first()
+    if not row:
+        raise HTTPException(404, "Party not found")
+    row.active = False
+    custom = dict(row.custom or {})
+    custom["deleted_at"] = date.today().isoformat()
+    custom["deleted"] = True
+    row.custom = custom
+    try:
+        from sqlalchemy.orm.attributes import flag_modified
+
+        flag_modified(row, "custom")
+    except Exception:
+        pass
+    audit(db, company_id=user.company_id, user_id=user.id, action="delete", entity="customer", entity_id=str(row.id))
+    db.commit()
+    return {"ok": True, "id": row.id, "code": row.code, "message": f"Party {row.code} deleted (inactive)"}
 
 
 class GstLookupIn(BaseModel):
@@ -552,6 +578,7 @@ class SalesOrderIn(BaseModel):
     exemption: str = "No"
     amc_status: str = ""
     attachment_note: str = ""
+    attachment_url: str = ""
     other_tax: float = 0
     charges: list[SOChargeIn] = Field(default_factory=list)
 
@@ -640,6 +667,7 @@ def create_sales_order(body: SalesOrderIn, user: CurrentUser, db: DbDep) -> dict
             "exemption": body.exemption,
             "amc_status": body.amc_status,
             "attachment_note": body.attachment_note,
+            "attachment_url": body.attachment_url or "",
             "other_tax": other_tax,
             "charges": charges,
             "charge_net": round(charge_net, 2),
@@ -4646,12 +4674,25 @@ def list_payments(user: CurrentUser, db: DbDep) -> list:
 
 
 @router.get("/sales/deliveries")
-def list_deliveries(user: CurrentUser, db: DbDep) -> list:
+def list_deliveries(
+    user: CurrentUser,
+    db: DbDep,
+    party: str | None = None,
+    number: str | None = None,
+    status: str | None = None,
+) -> list:
     rows = db.query(Delivery).filter(Delivery.company_id == user.company_id).order_by(Delivery.id.desc()).all()
     out = []
     for d in rows:
         so = db.get(SalesOrder, d.sales_order_id) if d.sales_order_id else None
         cust = db.get(Customer, so.customer_id) if so else None
+        cname = cust.name if cust else "—"
+        if party and party.lower() not in cname.lower():
+            continue
+        if number and number.lower() not in (d.number or "").lower():
+            continue
+        if status and status.lower() != (d.status or "").lower():
+            continue
         lines = list(d.lines or [])
         total_qty = sum(float(x.get("qty") or 0) for x in lines)
         sub, tax, total = _line_totals([dict(x) for x in lines]) if lines else (0, 0, 0)
@@ -4661,7 +4702,7 @@ def list_deliveries(user: CurrentUser, db: DbDep) -> list:
                 "number": d.number,
                 "sales_order": so.number if so else "",
                 "sales_order_id": d.sales_order_id,
-                "customer_name": cust.name if cust else "—",
+                "customer_name": cname,
                 "status": d.status,
                 "lines": lines,
                 "line_count": len(lines),
@@ -4674,6 +4715,117 @@ def list_deliveries(user: CurrentUser, db: DbDep) -> list:
             }
         )
     return out
+
+
+@router.get("/sales/deliveries/{delivery_id}")
+def get_delivery(delivery_id: int, user: CurrentUser, db: DbDep) -> dict:
+    d = db.query(Delivery).filter(Delivery.id == delivery_id, Delivery.company_id == user.company_id).first()
+    if not d:
+        raise HTTPException(404, "Delivery not found")
+    so = db.get(SalesOrder, d.sales_order_id) if d.sales_order_id else None
+    cust = db.get(Customer, so.customer_id) if so else None
+    lines = list(d.lines or [])
+    sub, tax, total = _line_totals([dict(x) for x in lines]) if lines else (0, 0, 0)
+    return {
+        "id": d.id,
+        "number": d.number,
+        "sales_order": so.number if so else "",
+        "sales_order_id": d.sales_order_id,
+        "customer_name": cust.name if cust else "—",
+        "customer_id": so.customer_id if so else None,
+        "status": d.status,
+        "lines": lines,
+        "total_qty": round(sum(float(x.get("qty") or 0) for x in lines), 4),
+        "total": total,
+        "subtotal": sub,
+        "tax": tax,
+        "invoice_id": getattr(d, "invoice_id", None),
+        "custom": getattr(d, "custom", None) or {},
+    }
+
+
+class DeliveryUpdateIn(BaseModel):
+    custom: dict | None = None
+    lines: list | None = None
+    status: str | None = None
+
+
+@router.patch("/sales/deliveries/{delivery_id}")
+def patch_delivery(delivery_id: int, body: DeliveryUpdateIn, user: CurrentUser, db: DbDep) -> dict:
+    """Edit Delivery Challan header/lines before invoice (SBAC Edit/Search)."""
+    from app.core.deps import assert_perm
+
+    assert_perm(user, db, "sales.*")
+    d = db.query(Delivery).filter(Delivery.id == delivery_id, Delivery.company_id == user.company_id).first()
+    if not d:
+        raise HTTPException(404, "Delivery not found")
+    if getattr(d, "invoice_id", None):
+        raise HTTPException(400, "Already invoiced — cannot edit")
+    if body.custom is not None:
+        cur = dict(getattr(d, "custom", None) or {})
+        cur.update(body.custom)
+        d.custom = cur
+    if body.lines is not None:
+        d.lines = body.lines
+    if body.status:
+        d.status = body.status
+    audit(db, company_id=user.company_id, user_id=user.id, action="update", entity="delivery", entity_id=str(d.id))
+    db.commit()
+    return get_delivery(delivery_id, user, db)
+
+
+class CashInvoiceIn(BaseModel):
+    customer_id: int
+    warehouse_id: int | None = None
+    lines: list
+    pay_mode: str = "CASH"
+    remarks: str = ""
+    custom: dict | None = None
+
+
+@router.post("/sales/invoices/cash")
+def create_cash_invoice(body: CashInvoiceIn, user: CurrentUser, db: DbDep) -> dict:
+    """Dedicated Cash Invoice — wraps direct invoice with cash pay + invoice_type."""
+    from app.core.deps import assert_perm
+
+    assert_perm(user, db, "sales.*")
+    line_models = []
+    for ln in body.lines or []:
+        if hasattr(ln, "model_dump"):
+            line_models.append(ln)
+        else:
+            line_models.append(SOLineIn(**ln) if isinstance(ln, dict) else ln)
+    payload = DirectInvoiceIn(
+        customer_id=body.customer_id,
+        warehouse_id=body.warehouse_id,
+        lines=line_models,
+        remarks=body.remarks or "Cash Invoice",
+        pay_mode=body.pay_mode or "CASH",
+        payment_mode=body.pay_mode or "CASH",
+        payment_amount=0,
+        entry_type="Direct",
+    )
+    result = create_direct_invoice(payload, user, db)
+    inv_data = (result or {}).get("invoice") or {}
+    inv_id = inv_data.get("id")
+    if inv_id:
+        inv = db.get(Invoice, inv_id)
+        if inv:
+            inv.invoice_type = "cash"
+            custom = dict(inv.custom or {})
+            custom.update(body.custom or {})
+            custom["invoice_kind"] = "cash"
+            custom["pay_mode"] = body.pay_mode or "CASH"
+            inv.custom = custom
+            # Mark paid for cash
+            if float(inv.paid or 0) < float(inv.total or 0):
+                inv.paid = float(inv.total or 0)
+                inv.status = "paid"
+            db.commit()
+            inv_data["invoice_type"] = "cash"
+            inv_data["status"] = inv.status
+            result["invoice"] = inv_data
+    return result
 
 
 @router.get("/purchase/grn")

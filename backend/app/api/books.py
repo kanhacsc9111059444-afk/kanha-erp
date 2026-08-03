@@ -171,6 +171,8 @@ class LedgerIn(BaseModel):
     currency: str = "Indian Rupee (INR)"
     other_value_pct: float = 0
     other_value_status: str = "No"
+    # SBAC bill-wise opening bills grid
+    bill_wise: list[dict[str, Any]] = Field(default_factory=list)
 
 
 @router.post("/vouchers")
@@ -509,6 +511,7 @@ def create_ledger(body: LedgerIn, user: CurrentUser, db: DbDep) -> dict:
             "other_value_pct": body.other_value_pct,
             "other_value_status": body.other_value_status,
             "parent_code": body.parent_code,
+            "bill_wise": list(body.bill_wise or []),
             "source": "kanha_ledger",
             "sbac_parity": "2026-08-02-live",
         },
@@ -1002,3 +1005,86 @@ def reverse_voucher(vid: int, user: CurrentUser, db: DbDep) -> dict:
     db.commit()
     db.refresh(row)
     return {"ok": True, "reversed": src.number, "reversal": row.number, "id": row.id}
+
+
+@router.post("/vouchers/{vid}/submit-approval")
+def submit_voucher_approval(vid: int, user: CurrentUser, db: DbDep) -> dict:
+    """Send voucher into hierarchy ApprovalEngine (SBAC Voucher Approval)."""
+    from app.services.hierarchy_approvals import submit_approval
+
+    _ensure_voucher_columns(db)
+    row = db.get(JournalEntry, vid)
+    if not row or row.company_id != user.company_id:
+        raise HTTPException(404, "Voucher not found")
+    if (row.status or "") in ("reversed", "deleted", "rejected"):
+        raise HTTPException(400, f"Cannot approve voucher in status {row.status}")
+    amt = sum(float(ln.get("debit") or 0) for ln in (row.lines or []))
+    try:
+        appr = submit_approval(
+            db,
+            company_id=user.company_id,
+            requester=user,
+            module="voucher",
+            entity_type="journal",
+            entity_id=str(row.id),
+            title=f"Voucher {row.number}",
+            amount=amt,
+        )
+    except Exception as e:
+        # If no hierarchy configured, mark pending locally
+        custom = dict(getattr(row, "custom", None) or {})
+        custom["approval_status"] = "pending"
+        custom["approval_note"] = str(e)[:200]
+        row.custom = custom
+        row.status = "pending_approval"
+        db.commit()
+        return {"ok": True, "status": "pending_approval", "message": "Marked pending (configure hierarchy for multi-level)"}
+    custom = dict(getattr(row, "custom", None) or {})
+    custom["approval_status"] = "pending"
+    custom["approval_id"] = getattr(appr, "id", None) if not isinstance(appr, dict) else appr.get("id")
+    row.custom = custom
+    row.status = "pending_approval"
+    db.commit()
+    return {"ok": True, "status": "pending_approval", "message": f"{row.number} sent for approval"}
+
+
+@router.post("/vouchers/{vid}/decide")
+def decide_voucher(vid: int, user: CurrentUser, db: DbDep, status: str = "approved") -> dict:
+    """Approve or reject pending voucher."""
+    from app.core.deps import assert_perm
+
+    assert_perm(user, db, "accounting.*", "approvals.*", "settings.*")
+    if status not in ("approved", "rejected"):
+        raise HTTPException(400, "status must be approved or rejected")
+    row = db.get(JournalEntry, vid)
+    if not row or row.company_id != user.company_id:
+        raise HTTPException(404, "Voucher not found")
+    custom = dict(getattr(row, "custom", None) or {})
+    custom["approval_status"] = status
+    custom["decided_by"] = user.email or str(user.id)
+    row.custom = custom
+    row.status = "posted" if status == "approved" else "rejected"
+    audit(db, company_id=user.company_id, user_id=user.id, action=f"voucher_{status}", entity="journal", entity_id=row.number)
+    db.commit()
+    return {"ok": True, "status": row.status, "number": row.number}
+
+
+@router.delete("/vouchers/{vid}")
+def delete_voucher(vid: int, user: CurrentUser, db: DbDep) -> dict:
+    """SBAC Delete voucher — soft delete (prefer Reverse for posted books trail)."""
+    from app.core.deps import assert_perm
+
+    assert_perm(user, db, "accounting.*", "settings.*")
+    row = db.get(JournalEntry, vid)
+    if not row or row.company_id != user.company_id:
+        raise HTTPException(404, "Voucher not found")
+    if (row.status or "") == "posted":
+        # Force reverse path for posted — keep books honest
+        return reverse_voucher(vid, user, db)
+    row.status = "deleted"
+    custom = dict(getattr(row, "custom", None) or {})
+    custom["deleted_at"] = date.today().isoformat()
+    row.custom = custom
+    audit(db, company_id=user.company_id, user_id=user.id, action="books_delete", entity="journal", entity_id=row.number)
+    db.commit()
+    return {"ok": True, "number": row.number, "status": "deleted", "message": f"{row.number} deleted"}

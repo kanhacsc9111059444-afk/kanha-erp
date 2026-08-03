@@ -798,6 +798,25 @@ class Document(Base, TimestampMixin):
     version: Mapped[int] = mapped_column(Integer, default=1)
 
 
+class LookupMaster(Base, TimestampMixin):
+    """Generic lookup for Brand / Group / Category / Unit / Transport / Agent / Country.
+    V2 SaaS-safe: always scoped by company_id.
+    """
+
+    __tablename__ = "lookup_masters"
+    __table_args__ = (UniqueConstraint("company_id", "master_type", "code"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    company_id: Mapped[int] = mapped_column(ForeignKey("companies.id"), index=True)
+    master_type: Mapped[str] = mapped_column(String(32), index=True)  # brand|unit|transport|…
+    code: Mapped[str] = mapped_column(String(64))
+    name: Mapped[str] = mapped_column(String(200))
+    parent_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+    sort_order: Mapped[int] = mapped_column(Integer, default=0)
+    custom: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+
+
 class ReportDefinition(Base, TimestampMixin):
     __tablename__ = "report_definitions"
 

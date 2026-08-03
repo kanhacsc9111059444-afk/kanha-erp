@@ -766,11 +766,12 @@ def _save_extras(db: DbDep, company_id: int, mutator) -> dict[str, Any]:
 
 @extras_router.get("/whatsapp-login")
 def extras_wa_login_get(user: CurrentUser, db: DbDep) -> dict:
-    """SBAC Whatsapp Login (whatsappset) — mobile + type + instance/QR status."""
+    """SBAC Whatsapp Login (whatsappset) — mobile + type + instance/QR status + user sessions."""
     from app.core.config import settings as cfg
 
     ex = _extras_blob(db, user.company_id)
     wa = dict(ex.get("whatsapp_login") or {})
+    sessions = list(wa.get("sessions") or [])
     return {
         "ok": True,
         "mobile": wa.get("mobile") or "",
@@ -781,13 +782,18 @@ def extras_wa_login_get(user: CurrentUser, db: DbDep) -> dict:
         "meta_live": bool(cfg.whatsapp_live),
         "webhook_path": "/api/meta/whatsapp/webhook",
         "verify_token_set": bool(cfg.whatsapp_verify_token),
+        "sessions": sessions,
+        "session_count": len(sessions),
     }
 
 
 class WaLoginIn(BaseModel):
     mobile: str = ""
     login_type: str = "Default"  # Default / User
-    action: str = "save"  # save | instance | qr | reset
+    action: str = "save"  # save | instance | qr | reset | session_add | session_toggle | session_remove
+    user_label: str = ""
+    session_id: str = ""
+    enabled: bool = True
 
 
 @extras_router.post("/whatsapp-login")
@@ -798,6 +804,7 @@ def extras_wa_login_save(body: WaLoginIn, user: CurrentUser, db: DbDep) -> dict:
 
     def mut(ex: dict) -> None:
         wa = dict(ex.get("whatsapp_login") or {})
+        sessions = list(wa.get("sessions") or [])
         if action == "reset":
             ex["whatsapp_login"] = {
                 "mobile": "",
@@ -805,11 +812,56 @@ def extras_wa_login_save(body: WaLoginIn, user: CurrentUser, db: DbDep) -> dict:
                 "instance_id": "",
                 "status": "reset",
                 "qr_hint": "Reset — create instance again",
+                "sessions": [],
                 "updated_at": datetime.utcnow().isoformat() + "Z",
             }
             return
+        if action == "session_add":
+            label = (body.user_label or "").strip() or f"User {len(sessions) + 1}"
+            mob = mobile or wa.get("mobile") or ""
+            if not mob:
+                raise HTTPException(400, "Mobile required for user session")
+            sid = f"wa-sess-{user.company_id}-{int(datetime.utcnow().timestamp())}-{len(sessions)}"
+            sessions.append(
+                {
+                    "id": sid,
+                    "user_label": label,
+                    "mobile": mob,
+                    "login_type": login_type,
+                    "enabled": True,
+                    "status": "active",
+                    "created_at": datetime.utcnow().isoformat() + "Z",
+                    "created_by": user.email or str(user.id),
+                }
+            )
+            wa["sessions"] = sessions
+            wa["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            ex["whatsapp_login"] = wa
+            return
+        if action == "session_toggle":
+            sid = (body.session_id or "").strip()
+            found = False
+            for s in sessions:
+                if str(s.get("id")) == sid:
+                    s["enabled"] = bool(body.enabled)
+                    s["status"] = "active" if body.enabled else "disabled"
+                    found = True
+                    break
+            if not found:
+                raise HTTPException(404, "Session not found")
+            wa["sessions"] = sessions
+            wa["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            ex["whatsapp_login"] = wa
+            return
+        if action == "session_remove":
+            sid = (body.session_id or "").strip()
+            wa["sessions"] = [s for s in sessions if str(s.get("id")) != sid]
+            wa["updated_at"] = datetime.utcnow().isoformat() + "Z"
+            ex["whatsapp_login"] = wa
+            return
         wa["mobile"] = mobile
         wa["login_type"] = login_type
+        wa["sessions"] = sessions
         wa["updated_at"] = datetime.utcnow().isoformat() + "Z"
         if action == "instance":
             wa["instance_id"] = wa.get("instance_id") or f"kanha-wa-{user.company_id}-{int(datetime.utcnow().timestamp())}"
@@ -824,7 +876,10 @@ def extras_wa_login_save(body: WaLoginIn, user: CurrentUser, db: DbDep) -> dict:
             wa["status"] = wa.get("status") or "saved"
         ex["whatsapp_login"] = wa
 
-    ex = _save_extras(db, user.company_id, mut)
+    try:
+        ex = _save_extras(db, user.company_id, mut)
+    except HTTPException:
+        raise
     wa = ex.get("whatsapp_login") or {}
     audit(
         db,
@@ -833,16 +888,20 @@ def extras_wa_login_save(body: WaLoginIn, user: CurrentUser, db: DbDep) -> dict:
         action=f"wa_login_{action}",
         entity="extras",
         entity_id="whatsapp_login",
-        detail={"mobile": mobile, "type": login_type},
+        detail={"mobile": mobile, "type": login_type, "session_id": body.session_id or ""},
     )
     return {
         "ok": True,
         **wa,
+        "sessions": list(wa.get("sessions") or []),
         "message": {
             "reset": "WhatsApp login reset",
             "instance": f"Instance {wa.get('instance_id')} ready",
             "qr": "QR ready (demo)",
             "save": "WhatsApp login saved",
+            "session_add": "User session added",
+            "session_toggle": "Session updated",
+            "session_remove": "Session removed",
         }.get(action, "Saved"),
     }
 

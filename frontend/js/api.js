@@ -166,6 +166,10 @@ const API = {
     return data;
   },
 
+  async uploadFile(file, fields = {}) {
+    return this.upload("/api/files/upload", file, fields);
+  },
+
   async uploadMany(path, files) {
     const fd = new FormData();
     [...files].forEach((f) => fd.append("files", f, f.name));

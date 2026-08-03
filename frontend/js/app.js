@@ -103,6 +103,7 @@
     automation: { title: "Automation", render: pageAutomation },
     extras: { title: "Kanha Extras", render: pageExtras },
     apps: { title: "Mobile Apps", render: pageApps },
+    masters: { title: "Masters", render: pageMasters },
     settings: { title: "Admin / Customization", render: pageSettings },
     flow: { title: "Live Flow Tour", render: pageFlow },
   };
@@ -1492,7 +1493,21 @@
               return `<option value="${val}" ${sel}>${lab}</option>`;
             })
             .join("");
-          return `<div class="field"><label for="${id}">${f.label}${req}</label><select id="${id}" data-mf="${f.name}">${optsHtml}</select></div>`;
+          const addBtn = f.masterType
+            ? `<button type="button" class="btn btn-ghost btn-sm" data-mf-add-master="${f.masterType}" data-mf-target="${f.name}" title="Add new">+</button>`
+            : "";
+          return `<div class="field"><label for="${id}">${f.label}${req}</label>
+            <div style="display:flex;gap:6px;align-items:center"><select id="${id}" data-mf="${f.name}" style="flex:1">${optsHtml}</select>${addBtn}</div></div>`;
+        }
+        if (f.type === "file") {
+          return `<div class="field"><label for="${id}">${f.label}${req}</label>
+            <input id="${id}" data-mf-file="${f.name}" type="file" accept="${f.accept || "*/*"}" />
+            <input type="hidden" data-mf="${f.name}" id="${id}-url" value="${f.value || ""}" />
+            <p class="hint" id="${id}-hint" style="margin:4px 0 0">${f.value ? "Current: " + f.value : "Upload to set URL"}</p>
+          </div>`;
+        }
+        if (f.type === "html") {
+          return `<div class="field" style="grid-column:1/-1" data-mf-html="${f.name || ""}">${f.html || ""}</div>`;
         }
         if (f.type === "textarea") {
           return `<div class="field"><label for="${id}">${f.label}${req}</label><textarea id="${id}" data-mf="${f.name}" rows="3" placeholder="${f.placeholder || ""}">${f.value || ""}</textarea></div>`;
@@ -1573,11 +1588,60 @@
     overlay.onclick = (e) => {
       if (e.target === overlay) close();
     };
+    // Inline master Add (+)
+    overlay.querySelectorAll("[data-mf-add-master]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const mt = btn.getAttribute("data-mf-add-master");
+        const target = btn.getAttribute("data-mf-target");
+        const name = prompt(`New ${mt} name`);
+        if (!name) return;
+        try {
+          const row = await API.post(`/api/masters/${mt}`, { name });
+          const sel = overlay.querySelector(`[data-mf="${target}"]`);
+          if (sel) {
+            const opt = document.createElement("option");
+            opt.value = row.name;
+            opt.textContent = row.name;
+            opt.selected = true;
+            sel.appendChild(opt);
+          }
+          toast(`${mt} added: ${row.name}`);
+        } catch (e) {
+          toast(e.message || "Add failed");
+        }
+      });
+    });
+    // File uploads → hidden URL field
+    overlay.querySelectorAll("[data-mf-file]").forEach((inp) => {
+      inp.addEventListener("change", async () => {
+        const key = inp.getAttribute("data-mf-file");
+        const file = inp.files && inp.files[0];
+        if (!file) return;
+        try {
+          const kind = (inp.accept || "").includes("image") ? "image" : "any";
+          const up = await API.uploadFile(file, { entity: key, kind });
+          const urlEl = overlay.querySelector(`#mf-${key}-url`) || overlay.querySelector(`[data-mf="${key}"]`);
+          if (urlEl) urlEl.value = up.url || up.path;
+          const hint = overlay.querySelector(`#mf-${key}-hint`);
+          if (hint) hint.textContent = `Uploaded: ${up.url || up.path}`;
+          toast("File uploaded");
+        } catch (e) {
+          toast(e.message || "Upload failed");
+        }
+      });
+    });
     (opts.extraButtons || []).forEach((b) => {
       if (typeof b.onClick === "function") {
         $(`#${b.id}`)?.addEventListener("click", () => b.onClick(overlay));
       }
     });
+    if (typeof opts.onReady === "function") {
+      try {
+        opts.onReady(overlay);
+      } catch (e) {
+        console.warn("master form onReady", e);
+      }
+    }
     $("#mf-form")?.addEventListener("submit", async (ev) => {
       ev.preventDefault();
       const data = {};
@@ -1717,8 +1781,10 @@
             <input id="sdf-mobile" type="text" placeholder="Mobile" /></div>
           <div class="field"><label>GST No</label>
             <input id="sdf-gstin" type="text" placeholder="GSTIN" /></div>
-          <div class="field"><label>Attachment note</label>
-            <input id="sdf-attach" type="text" placeholder="File attach — note / filename" /></div>
+          <div class="field"><label>Attachment</label>
+            <input id="sdf-attach" type="file" accept="*/*" />
+            <input type="hidden" id="sdf-attach-url" value="" />
+            <p class="hint" id="sdf-attach-hint" style="margin:4px 0 0">Upload PO / drawing / PDF — stored on SO</p></div>
         `
       : invDeep
         ? `
@@ -2142,7 +2208,19 @@
         payload.delivery_type = $("#sdf-del-type")?.value || "";
         payload.mobile = $("#sdf-mobile")?.value || "";
         payload.gstin = $("#sdf-gstin")?.value || "";
-        payload.attachment_note = $("#sdf-attach")?.value || "";
+        payload.attachment_note = $("#sdf-attach")?.files?.[0]?.name || $("#sdf-attach-hint")?.textContent || "";
+        payload.attachment_url = $("#sdf-attach-url")?.value || "";
+        const attachFile = $("#sdf-attach")?.files?.[0];
+        if (attachFile && !payload.attachment_url) {
+          try {
+            const up = await API.uploadFile(attachFile, { module: "sales_order" });
+            payload.attachment_url = up.url || up.path || up.file_url || "";
+            payload.attachment_note = attachFile.name;
+            if ($("#sdf-attach-url")) $("#sdf-attach-url").value = payload.attachment_url;
+          } catch (e) {
+            return toast(e.message || "Attachment upload failed");
+          }
+        }
         payload.terms = $("#sdf-terms")?.value || "";
         payload.executive = $("#sdf-exec")?.value || "";
         payload.cc = $("#sdf-cc")?.value || "";
@@ -4818,11 +4896,19 @@
           ]))}
         </div></div>
         <div class="panel glass"><div class="panel-hd"><h2>Recent vouchers</h2></div><div class="panel-bd">
-          ${table(["No", "Type", "Date", "Party", "Dr", ""], (vouchers || []).slice(0, 20).map((v) => [
+          ${table(["No", "Type", "Date", "Party", "Dr", "Status", ""], (vouchers || []).slice(0, 20).map((v) => [
             v.number, v.voucher_type, v.entry_date || "—", v.party_name || "—", money(v.debit),
-            v.status !== "reversed"
-              ? `<button class="btn btn-ghost btn-sm" data-rev="${v.id}">Reverse</button>`
-              : `<span class="pill">reversed</span>`,
+            `<span class="pill">${v.status || "posted"}</span>`,
+            v.status === "reversed" || v.status === "deleted"
+              ? `<span class="pill">${v.status}</span>`
+              : `<span class="row" style="gap:4px;flex-wrap:wrap">
+                  <button class="btn btn-ghost btn-sm" data-rev="${v.id}">Reverse</button>
+                  ${v.status === "pending_approval"
+                    ? `<button class="btn btn-accent btn-sm" data-v-approve="${v.id}">Approve</button>
+                       <button class="btn btn-ghost btn-sm" data-v-reject="${v.id}">Reject</button>`
+                    : `<button class="btn btn-ghost btn-sm" data-v-submit="${v.id}">Send Approval</button>`}
+                  <button class="btn btn-ghost btn-sm" data-v-del="${v.id}">Delete</button>
+                </span>`,
           ]))}
         </div></div>
       </div>
@@ -4990,8 +5076,29 @@
             ],
             value: "No",
           },
+          {
+            type: "html",
+            name: "bill_wise_grid",
+            html: `<label>Bill-wise Opening Adjustment (SBAC)</label>
+              <p class="hint" style="margin:4px 0 8px">Opening bills — Bill No · Date · Amount · Dr/Cr. Saved on ledger custom.bill_wise.</p>
+              <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:8px">
+                <input id="mf-bw-bill" type="text" placeholder="Bill No" style="width:110px" />
+                <input id="mf-bw-date" type="date" style="width:140px" />
+                <input id="mf-bw-amt" type="number" step="any" placeholder="Amount" style="width:100px" value="0" />
+                <select id="mf-bw-drcr" style="width:90px"><option>Debit</option><option>Credit</option></select>
+                <button type="button" class="btn btn-accent btn-sm" id="mf-bw-add">+ Bill</button>
+              </div>
+              <div id="mf-bw-box"><p class="hint">No opening bills yet</p></div>
+              <input type="hidden" data-mf="bill_wise_json" id="mf-bw-json" value="[]" />`,
+          },
         ],
         async (data) => {
+          let billWise = [];
+          try {
+            billWise = JSON.parse(data.bill_wise_json || "[]");
+          } catch (_) {
+            billWise = [];
+          }
           const r = await API.post("/api/books/ledgers", {
             code: data.code,
             name: data.name,
@@ -5004,12 +5111,60 @@
             currency: data.currency || "Indian Rupee (INR)",
             other_value_pct: Number(data.other_value_pct || 0),
             other_value_status: data.other_value_status || "No",
+            bill_wise: billWise,
           });
           toast(r.message || `Ledger ${r.code}`);
           showSavedDetail("Ledger created", r);
           pageBooks(el);
         },
-        { eyebrow: "Master · Ledger (SBAC Create Ledger)" }
+        {
+          eyebrow: "Master · Ledger (SBAC Create Ledger)",
+          onReady: (overlay) => {
+            const bills = [];
+            const renderBw = () => {
+              const box = overlay.querySelector("#mf-bw-box");
+              const hid = overlay.querySelector("#mf-bw-json");
+              if (hid) hid.value = JSON.stringify(bills);
+              if (!box) return;
+              if (!bills.length) {
+                box.innerHTML = `<p class="hint">No opening bills yet</p>`;
+                return;
+              }
+              box.innerHTML = `<table class="data"><thead><tr><th>Bill</th><th>Date</th><th>Amt</th><th>Dr/Cr</th><th></th></tr></thead><tbody>
+                ${bills
+                  .map(
+                    (b, i) =>
+                      `<tr><td>${b.bill_no}</td><td>${b.bill_date || "—"}</td><td>${b.amount}</td><td>${b.dr_cr}</td>
+                      <td><button type="button" class="btn btn-ghost btn-sm" data-bw-rm="${i}">✕</button></td></tr>`
+                  )
+                  .join("")}
+              </tbody></table>`;
+              box.querySelectorAll("[data-bw-rm]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                  bills.splice(Number(btn.dataset.bwRm), 1);
+                  renderBw();
+                });
+              });
+            };
+            overlay.querySelector("#mf-bw-add")?.addEventListener("click", () => {
+              const bill_no = (overlay.querySelector("#mf-bw-bill")?.value || "").trim();
+              const amount = Number(overlay.querySelector("#mf-bw-amt")?.value || 0);
+              if (!bill_no) return toast("Bill No required");
+              if (amount <= 0) return toast("Amount > 0");
+              bills.push({
+                bill_no,
+                bill_date: overlay.querySelector("#mf-bw-date")?.value || "",
+                amount,
+                dr_cr: overlay.querySelector("#mf-bw-drcr")?.value || "Debit",
+              });
+              const billEl = overlay.querySelector("#mf-bw-bill");
+              const amtEl = overlay.querySelector("#mf-bw-amt");
+              if (billEl) billEl.value = "";
+              if (amtEl) amtEl.value = "0";
+              renderBw();
+            });
+          },
+        }
       );
     });
     el.querySelectorAll("[data-vtype]").forEach((btn) => {
@@ -5094,6 +5249,35 @@
       try {
         const r = await API.post(`/api/books/vouchers/${b.getAttribute("data-rev")}/reverse`, {});
         toast(`Reversed ${r.reversed} → ${r.reversal}`);
+        pageBooks(el);
+      } catch (e) { toast(e.message); }
+    }));
+    document.querySelectorAll("[data-v-submit]").forEach((b) => b.addEventListener("click", async () => {
+      try {
+        const r = await API.post(`/api/books/vouchers/${b.getAttribute("data-v-submit")}/submit-approval`, {});
+        toast(r.message || "Sent for approval");
+        pageBooks(el);
+      } catch (e) { toast(e.message); }
+    }));
+    document.querySelectorAll("[data-v-approve]").forEach((b) => b.addEventListener("click", async () => {
+      try {
+        const r = await API.post(`/api/books/vouchers/${b.getAttribute("data-v-approve")}/decide?status=approved`, {});
+        toast(`Approved ${r.number || ""}`);
+        pageBooks(el);
+      } catch (e) { toast(e.message); }
+    }));
+    document.querySelectorAll("[data-v-reject]").forEach((b) => b.addEventListener("click", async () => {
+      try {
+        const r = await API.post(`/api/books/vouchers/${b.getAttribute("data-v-reject")}/decide?status=rejected`, {});
+        toast(`Rejected ${r.number || ""}`);
+        pageBooks(el);
+      } catch (e) { toast(e.message); }
+    }));
+    document.querySelectorAll("[data-v-del]").forEach((b) => b.addEventListener("click", async () => {
+      if (!confirm("Delete this voucher? Posted vouchers will reverse instead.")) return;
+      try {
+        const r = await API.del(`/api/books/vouchers/${b.getAttribute("data-v-del")}`);
+        toast(r.message || `Deleted ${r.number || ""}`);
         pageBooks(el);
       } catch (e) { toast(e.message); }
     }));
@@ -5303,7 +5487,10 @@
           c.gstin || "—",
           (c.custom && c.custom.whatsapp) || c.phone || "—",
           (c.custom && c.custom.under_account) || "—",
-          `<button class="btn btn-ghost btn-sm" data-crm-d="cust" data-id="${c.id}">Details</button>`,
+          `<span class="row" style="gap:4px;flex-wrap:wrap">
+            <button class="btn btn-ghost btn-sm" data-crm-d="cust" data-id="${c.id}">Details</button>
+            ${c.active === false ? `<span class="pill">inactive</span>` : `<button class="btn btn-ghost btn-sm" data-crm-del="${c.id}">Delete</button>`}
+          </span>`,
         ]))}</div></div>
         <div class="panel glass"><div class="panel-hd"><h2>Pipeline</h2><button class="btn btn-primary btn-sm" id="add-opp">+ Opportunity</button></div>
           <div class="panel-bd">${table(["Opportunity", "Customer", "Stage", "Amount", "Prob", ""], opps.map((o) => [
@@ -5324,7 +5511,19 @@
       showSavedDetail("Lead saved", r);
       pageCRM(el);
     });
-    $("#add-cust")?.addEventListener("click", () => {
+    $("#add-cust")?.addEventListener("click", async () => {
+      try {
+        const [tr, ag] = await Promise.all([
+          API.get("/api/masters/transport").catch(() => []),
+          API.get("/api/masters/agent").catch(() => []),
+        ]);
+        if (!tr.length) await API.post("/api/masters-seed").catch(() => null);
+        const tr2 = tr.length ? tr : await API.get("/api/masters/transport").catch(() => []);
+        const ag2 = ag.length ? ag : await API.get("/api/masters/agent").catch(() => []);
+        window.__kanhaMasterCache = window.__kanhaMasterCache || {};
+        window.__kanhaMasterCache.transport = (tr2 || []).map((x) => x.name);
+        window.__kanhaMasterCache.agent = (ag2 || []).map((x) => x.name);
+      } catch (_) { /* offline masters */ }
       const underOpts = [
         "Agent/Salesman A/C",
         "Bank Accounts",
@@ -5417,8 +5616,8 @@
             options: ["Yes", "No"],
             value: "Yes",
           },
-          { name: "transport", label: "Transport", placeholder: "Transport name" },
-          { name: "agent", label: "Agent Name", placeholder: "Agent / executive" },
+          { name: "transport", label: "Transport", type: "select", masterType: "transport", options: ["", ...(window.__kanhaMasterCache?.transport || [])] },
+          { name: "agent", label: "Agent Name", type: "select", masterType: "agent", options: ["", ...(window.__kanhaMasterCache?.agent || [])] },
           {
             name: "party_type",
             label: "Kanha Role (extra)",
@@ -5767,6 +5966,18 @@
               },
             },
             {
+              id: "mf-reset-party",
+              label: "Reset",
+              onClick: (overlay) => {
+                overlay.querySelectorAll("[data-mf]").forEach((el) => {
+                  if (el.type === "checkbox") el.checked = false;
+                  else if (el.tagName === "SELECT") el.selectedIndex = 0;
+                  else el.value = "";
+                });
+                toast("Form reset");
+              },
+            },
+            {
               id: "mf-add-address",
               label: "Add Address",
               onClick: (overlay) => {
@@ -5897,6 +6108,20 @@
       const map = { lead: leads, cust: customers, opp: opps, quote: quotes };
       const row = (map[kind] || []).find((x) => x.id === id);
       btn.addEventListener("click", () => openDetail(`${kind} #${id}`, row || {}, { eyebrow: "CRM detail", showJson: false }));
+    });
+    el.querySelectorAll("[data-crm-del]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.getAttribute("data-crm-del");
+        const row = (customers || []).find((c) => String(c.id) === String(id));
+        if (!confirm(`Delete party ${row?.code || id}? (soft — becomes inactive)`)) return;
+        try {
+          const r = await API.del(`/api/crm/customers/${id}`);
+          toast(r.message || "Party deleted");
+          pageCRM(el);
+        } catch (e) {
+          toast(e.message || "Delete failed");
+        }
+      });
     });
   }
 
@@ -6360,20 +6585,32 @@
           ]),
           "Koi pending SO nahi — bal qty wale orders yahan aate hain."
         )}</div></div></div>
-      <div class="panel glass"><div class="panel-hd"><h2>Delivery Challans</h2></div>
-        <div class="panel-bd">${table(
+      <div class="panel glass"><div class="panel-hd"><h2>Delivery Challans · Edit / Search</h2></div>
+        <div class="panel-bd">
+          <div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <input id="dn-search-party" type="text" placeholder="Party" style="max-width:160px" />
+            <input id="dn-search-no" type="text" placeholder="Challan No" style="max-width:120px" />
+            <button type="button" class="btn btn-ghost btn-sm" id="dn-search-go">Search</button>
+          </div>
+          <div id="dn-list-box">${table(
           ["Challan", "SO", "Customer", "Status", "Qty", "Amt", ""],
           (deliveries || []).map((d) => [
             d.number, d.sales_order || "—", d.customer_name || "—",
             `<span class="pill">${d.status}</span>`,
             d.total_qty ?? d.line_count ?? (Array.isArray(d.lines) ? d.lines.length : d.lines),
             money(d.total || 0),
-            `<button class="btn btn-ghost btn-sm" data-dn-d="${d.id}">Details</button>`,
+            `<button class="btn btn-ghost btn-sm" data-dn-d="${d.id}">Details</button>
+             <button class="btn btn-accent btn-sm" data-dn-edit="${d.id}" ${d.invoice_id ? "disabled" : ""}>Edit</button>
+             <button class="btn btn-ghost btn-sm" data-dn-print="${d.id}">Print</button>`,
           ]),
           "No challans yet — Pending SO se Create Challan."
-        )}</div></div>
+        )}</div></div></div>
       <div class="panel glass"><div class="panel-hd"><h2>Pending Challan → Sales Invoice</h2>
-        <button class="btn btn-accent btn-sm" id="add-dir-inv">+ Direct Invoice</button></div>
+        <div class="row" style="gap:6px;flex-wrap:wrap">
+          <button class="btn btn-accent btn-sm" id="add-dir-inv">+ Direct Invoice</button>
+          <button class="btn btn-primary btn-sm" id="add-cash-inv">+ Cash Invoice</button>
+          <button class="btn btn-ghost btn-sm" id="add-sales-return">Sales Return</button>
+        </div></div>
         <div class="panel-bd">${table(
           ["Challan No", "Date", "Party", "Total Qty", "Total Amt", ""],
           (pendingDC || []).map((d) => [
@@ -6404,7 +6641,8 @@
             money(i.balance),
             `<span class="pill">${i.status}</span>`,
             `<button class="btn btn-ghost btn-sm" data-inv-row="${i.id}">Details</button>
-             <button class="btn btn-ghost btn-sm" data-inv-print="${i.id}">Print</button>`,
+             <button class="btn btn-ghost btn-sm" data-inv-print="${i.id}">Print</button>
+             <button class="btn btn-accent btn-sm" data-inv-einvoice="${i.id}">E-Invoice</button>`,
           ])
         )}</div></div>
       <div class="panel glass"><div class="panel-hd"><h2>Credit notes</h2></div>
@@ -6612,6 +6850,92 @@
     el.querySelectorAll("[data-dn-d]").forEach((btn) => {
       const row = (deliveries || []).find((d) => String(d.id) === btn.dataset.dnD);
       btn.addEventListener("click", () => openDetail(row?.number || "DN", row || {}, { eyebrow: "Delivery Challan", showJson: false }));
+    });
+    el.querySelectorAll("[data-dn-edit]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.dnEdit;
+        try {
+          const d = await API.get(`/api/sales/deliveries/${id}`);
+          const transport = prompt("Transport", (d.custom && d.custom.transport) || "") ?? null;
+          if (transport === null) return;
+          const remarks = prompt("Remarks", (d.custom && d.custom.remarks) || "") ?? null;
+          if (remarks === null) return;
+          const r = await API.patch(`/api/sales/deliveries/${id}`, {
+            custom: { ...(d.custom || {}), transport, remarks },
+          });
+          toast(`Challan ${r.number} updated`);
+          pageSales(el);
+        } catch (e) {
+          toast(e.message || "Edit failed");
+        }
+      });
+    });
+    el.querySelectorAll("[data-dn-print]").forEach((btn) => {
+      btn.addEventListener("click", () => openPrintDoc("challan", btn.dataset.dnPrint));
+    });
+    $("#dn-search-go")?.addEventListener("click", async () => {
+      const party = $("#dn-search-party")?.value || "";
+      const number = $("#dn-search-no")?.value || "";
+      const q = new URLSearchParams();
+      if (party) q.set("party", party);
+      if (number) q.set("number", number);
+      try {
+        const rows = await API.get(`/api/sales/deliveries?${q.toString()}`);
+        const box = $("#dn-list-box");
+        if (box) {
+          box.innerHTML = table(
+            ["Challan", "SO", "Customer", "Status", "Qty", "Amt", ""],
+            (rows || []).map((d) => [
+              d.number, d.sales_order || "—", d.customer_name || "—",
+              `<span class="pill">${d.status}</span>`,
+              d.total_qty, money(d.total || 0),
+              `<button class="btn btn-accent btn-sm" data-dn-edit="${d.id}" ${d.invoice_id ? "disabled" : ""}>Edit</button>
+               <button class="btn btn-ghost btn-sm" data-dn-print="${d.id}">Print</button>`,
+            ]),
+            "No match"
+          );
+          box.querySelectorAll("[data-dn-edit]").forEach((b) => {
+            b.addEventListener("click", () => el.querySelector(`[data-dn-edit="${b.dataset.dnEdit}"]`)?.click());
+          });
+          box.querySelectorAll("[data-dn-print]").forEach((b) => {
+            b.addEventListener("click", () => openPrintDoc("challan", b.dataset.dnPrint));
+          });
+        }
+      } catch (e) {
+        toast(e.message || "Search failed");
+      }
+    });
+    $("#add-cash-inv")?.addEventListener("click", async () => {
+      const cust = (customers || [])[0];
+      const prod = (products || [])[0];
+      const wh = (warehouses || [])[0];
+      if (!cust || !prod) return toast("Need customer + product");
+      try {
+        const r = await API.post("/api/sales/invoices/cash", {
+          customer_id: cust.id,
+          warehouse_id: wh?.id,
+          pay_mode: "CASH",
+          remarks: "Cash Invoice",
+          lines: [{ product_id: prod.id, qty: 1, rate: prod.sale_price || 100, gst_rate: prod.gst_rate || 18 }],
+        });
+        toast(`Cash Invoice ${r.invoice?.number || "OK"}`);
+        showSavedDetail("Cash Invoice", r);
+        pageSales(el);
+      } catch (e) {
+        toast(e.message || "Cash invoice failed");
+      }
+    });
+    $("#add-sales-return")?.addEventListener("click", () => $("#credit-note")?.click());
+    el.querySelectorAll("[data-inv-einvoice]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          const r = await API.post(`/api/logistics/einvoice/generate?invoice_id=${btn.dataset.invEinvoice}`, {});
+          toast(r.message || `IRN ${r.irn}`);
+          showSavedDetail("E-Invoice IRN", r);
+        } catch (e) {
+          toast(e.message || "E-Invoice failed");
+        }
+      });
     });
     el.querySelectorAll("[data-inv-row]").forEach((btn) => {
       const row = salesInvs.find((i) => String(i.id) === btn.dataset.invRow);
@@ -7191,6 +7515,7 @@
               });
               toast(r.message || `Issue ${r.number}`);
               flowSave(`Material Issue ${r.number}`, r, "Stock out · ledger me issue move.");
+              if (r.id) openPrintDoc("issue", r.id);
               pageStore(el);
             },
             { eyebrow: "Store · Issue (SBAC)", saveLabel: "Save and Print", purposePlaceholder: "Production / Job / …", docKind: "issue" }
@@ -7253,9 +7578,10 @@
               });
               toast(r.message || `Receive ${r.number}`);
               flowSave(`Store Receive ${r.number}`, r, "Stock in (internal) · purchase MRN alag hai.");
+              if (r.id) openPrintDoc("receive", r.id);
               pageStore(el);
             },
-            { eyebrow: "Store · Receive (SBAC)", saveLabel: "Save", docKind: "receive", defaultSource: "return" }
+            { eyebrow: "Store · Receive (SBAC)", saveLabel: "Save and Print", docKind: "receive", defaultSource: "return" }
           );
         });
         $("#st-phys")?.addEventListener("click", () => {
@@ -7445,20 +7771,30 @@
         pageInventory(el);
       } catch (e) { toast(e.message || "Transfer failed"); }
     });
-    $("#add-product")?.addEventListener("click", () => {
-      const units = ["BAG", "NOS", "BOX", "MTR", "PCS", "MT", "BUNDLE", "KGS", "COIL", "QTL", "PACKET", "TIN", "SQF", "LTR"];
-      const brands = [
-        "MS PIPE", "ASTRAL", "POWERTECH", "JK LAXMI", "SST SALDU", "MAXIDURA", "JSW", "ASIAN PAINTS",
-        "BOSCO", "JINDAL", "CHHANEL", "SBAC", "Generic", "OEM", "Other",
-      ];
-      const mainGroups = [
-        "BAJRI", "BRICKS", "CAST IRON ELECTRODES", "CEMENT", "CONDUIT", "CONSUMABLE", "CPVC",
-        "Finished Goods", "Raw Material", "Semi Finished", "Trading", "Scrap", "General",
-      ];
-      const subGroups = ["CEMENT", "POLL", "GITTI", "JK SUPER", "FABT", "RD BUSH", "PLUG THREADED", "Alloys", "Ingots", "Other"];
-      const categories = [
-        "HARD FACING", "Mild Steel", "CAST IRON", "WELDING ELECTRODES", "Stainless steel", "JOINING", "MaxiDura", "Other",
-      ];
+    $("#add-product")?.addEventListener("click", async () => {
+      let units = ["BAG", "NOS", "BOX", "MTR", "PCS", "MT", "BUNDLE", "KGS", "COIL", "QTL", "PACKET", "TIN", "SQF", "LTR"];
+      let brands = ["MS PIPE", "ASTRAL", "JSW", "JINDAL", "Generic", "Other"];
+      let mainGroups = ["Finished Goods", "Raw Material", "Semi Finished", "Trading", "Scrap", "General", "CEMENT", "ELECTRODES", "PIPES", "CPVC"];
+      let subGroups = ["General", "Other"];
+      let categories = ["Mild Steel", "HARD FACING", "Other"];
+      let countries = ["India", "United Arab Emirates", "Oman", "Saudi Arabia", "Other"];
+      try {
+        await API.post("/api/masters-seed").catch(() => null);
+        const [u, b, g, sg, c, co] = await Promise.all([
+          API.get("/api/masters/unit"),
+          API.get("/api/masters/brand"),
+          API.get("/api/masters/main_group"),
+          API.get("/api/masters/sub_group"),
+          API.get("/api/masters/category"),
+          API.get("/api/masters/country"),
+        ]);
+        if (u?.length) units = u.map((x) => x.code || x.name);
+        if (b?.length) brands = b.map((x) => x.name);
+        if (g?.length) mainGroups = g.map((x) => x.name);
+        if (sg?.length) subGroups = sg.map((x) => x.name);
+        if (c?.length) categories = c.map((x) => x.name);
+        if (co?.length) countries = co.map((x) => x.name);
+      } catch (_) { /* keep defaults */ }
       const branchOpts = [
         "SHRI BALAJI ALLOYS CORPORATION RPR",
         "SBAC FARM",
@@ -7469,15 +7805,10 @@
         "SHRI BALAJI ALLOYS CORPORATION MANDAWA",
       ];
       const sizes = ["3.15x450MM", "5X450mm", "2.5X350mm", "4X350mm", "9'", "8.5'", "3.15x350mm"];
-      const countries = [
-        "India", "Oman", "TANZANIA", "United States of America", "IRAN", "AUSTRALIA", "SOUTH AFRICA",
-        "UGANDA", "Singapore", "Kenya", "UKRAINE", "AMERICA", "Bangladesh", "Canada", "England",
-        "FRANCE", "United Arab Emirates( Dubai)", "Nepal", "Germany", "China",
-      ];
       openMasterForm(
         "Item Master",
         [
-          { type: "section", label: "Primary", hint: "SBAC Add Item — live parity 2026-08-02" },
+          { type: "section", label: "Primary", hint: "SBAC Add Item — live parity 2026-08-02 · masters + upload" },
           {
             name: "branch_name",
             label: "Branch Name",
@@ -7487,39 +7818,44 @@
           },
           { name: "sku", label: "Item Code", placeholder: "Leave blank to auto-generate" },
           { name: "name", label: "Item Name", required: true, placeholder: "Item Name" },
-          { name: "part_image_url", label: "Part Image (URL)", placeholder: "Optional image URL — file upload later" },
+          { name: "part_image_url", label: "Part Image Upload", type: "file", accept: "image/*" },
           {
             name: "brand",
             label: "Select Brand",
             type: "select",
+            masterType: "brand",
             options: ["", ...brands],
           },
           {
             name: "uom",
             label: "Base Unit",
             type: "select",
+            masterType: "unit",
             required: true,
             options: units,
-            value: "KGS",
+            value: units.includes("KGS") ? "KGS" : units[0],
           },
           {
             name: "main_group",
             label: "Main Group",
             type: "select",
+            masterType: "main_group",
             required: true,
             options: mainGroups,
-            value: "Finished Goods",
+            value: mainGroups[0],
           },
           {
             name: "sub_group",
             label: "Sub Group",
             type: "select",
+            masterType: "sub_group",
             options: ["", ...subGroups],
           },
           {
             name: "category",
             label: "Category/Make",
             type: "select",
+            masterType: "category",
             options: ["", ...categories],
           },
           { name: "hsn", label: "HSN Code", placeholder: "HSN Code" },
@@ -7528,6 +7864,7 @@
             name: "purchase_uom",
             label: "Purchase Default Unit",
             type: "select",
+            masterType: "unit",
             options: ["", ...units],
             value: "KGS",
           },
@@ -7535,6 +7872,7 @@
             name: "sale_uom",
             label: "Sale Default Unit",
             type: "select",
+            masterType: "unit",
             options: ["", ...units],
             value: "KGS",
           },
@@ -7561,6 +7899,7 @@
           { name: "gross_weight", label: "Gross Weight", type: "number", placeholder: "Gross Weight" },
           { name: "net_weight", label: "Net Weight", type: "number", placeholder: "Net Weight" },
           { name: "cartoon_weight", label: "Cartoon Weight", type: "number", placeholder: "Cartoon Weight" },
+          { name: "other_image_url", label: "Other Section Image", type: "file", accept: "image/*" },
           { name: "std_pack_qty", label: "Standard Packaging Quantity", type: "number", placeholder: "Std pack qty" },
           { name: "sub_item", label: "Sub Item", type: "checkbox", value: false },
           {
@@ -7817,6 +8156,7 @@
                 gross_weight: data.gross_weight || "",
                 net_weight: data.net_weight || "",
                 cartoon_weight: data.cartoon_weight || "",
+                other_image_url: data.other_image_url || "",
                 std_pack_qty: data.std_pack_qty || "",
                 sub_item: data.sub_item || "No",
                 subitem_required: data.subitem_required || "No",
@@ -8285,7 +8625,7 @@
   }
 
   async function pageHRMS(el) {
-    const [emps, att, payroll, leaves, disbursements, expenses, tracking, salPol, perf, loans] = await Promise.all([
+    const [emps, att, payroll, leaves, disbursements, expenses, tracking, salPol, perf, loans, leaveBal] = await Promise.all([
       API.get("/api/hrms/employees"),
       API.get("/api/hrms/attendance"),
       API.get("/api/hrms/payroll"),
@@ -8296,6 +8636,7 @@
       API.get("/api/hrms/salary-policy").catch(() => ({ mode: "labour_safe", labour_note: "" })),
       API.get("/api/hrms/performance").catch(() => ({ employees: [] })),
       API.get("/api/hrms/loans").catch(() => []),
+      API.get(`/api/hrms/leave-balances?month=${new Date().toISOString().slice(0, 7)}`).catch(() => ({ rows: [] })),
     ]);
     const active = emps.filter((e) => e.active !== false);
     const empOpts = active.map((e) => ({ value: e.id, label: `${e.code} · ${e.full_name}` }));
@@ -8311,6 +8652,19 @@
           <span class="hint" style="margin:0">SBAC HR parity · Employee → Leave/Attendance → Salary Confirm→Approve→Disburse · Loans EMI</span>
         </div>
       </div></div>
+      <div class="panel glass"><div class="panel-hd"><h2>Leave Balance (EL / CL)</h2>
+        <button class="btn btn-ghost btn-sm" id="lb-refresh">Refresh</button></div>
+        <div class="panel-bd">${table(
+          ["Emp", "Name", "Dept", "CL Open", "CL Used", "CL Bal", "EL Open", "EL Used", "EL Bal"],
+          (leaveBal.rows || []).map((r) => [
+            r.code, r.name, r.department || "—",
+            r.cl_opening, r.cl_used, r.cl_balance,
+            r.el_opening, r.el_used, r.el_balance,
+          ]),
+          "No employees — add Employee Master first"
+        )}
+        <p class="hint">Month: ${leaveBal.month || periodDefault} · SBAC EmpWise leave grid</p>
+        </div></div>
       <div class="panel glass"><div class="panel-hd"><h2>Salary policy (labour-aware)</h2>
         <button class="btn btn-primary btn-sm" id="save-sal-pol">Save policy</button></div>
         <div class="panel-bd">
@@ -8550,6 +8904,8 @@
         "Employee Master",
         [
           { name: "full_name", label: "First / Full Name *", required: true, placeholder: "txtfirstname" },
+          { name: "photo_url", label: "Photo Upload", type: "file", accept: "image/*" },
+          { name: "sign_url", label: "Signature Upload", type: "file", accept: "image/*" },
           {
             name: "gender",
             label: "Gender",
@@ -8657,9 +9013,13 @@
           { name: "longitude", label: "Longitude", placeholder: "txtLongitude" },
           { name: "distance", label: "Distance (m)", placeholder: "txtDistance" },
           { name: "aadhaar", label: "Aadhaar No", placeholder: "txtadharno" },
+          { name: "aadhaar_file", label: "Aadhaar Document", type: "file", accept: "image/*,application/pdf" },
           { name: "pan", label: "PAN", placeholder: "txtpancardno" },
+          { name: "pan_file", label: "PAN Document", type: "file", accept: "image/*,application/pdf" },
           { name: "licence_no", label: "Licence No", placeholder: "txtlicenceno" },
+          { name: "licence_file", label: "Driving Licence Doc", type: "file", accept: "image/*,application/pdf" },
           { name: "voter_no", label: "Voter No", placeholder: "txtvoterno" },
+          { name: "voter_file", label: "Voter ID Doc", type: "file", accept: "image/*,application/pdf" },
           { name: "blood_group", label: "Blood group", placeholder: "B+" },
           { name: "bank_name", label: "Bank Name", value: "SBI", placeholder: "txtbank" },
           { name: "ifsc", label: "IFSC", value: "SBIN0001122", placeholder: "txtifsc" },
@@ -10719,6 +11079,24 @@
             </div>
             <p class="hint" style="margin-top:8px">Instance: <code>${waLogin.instance_id || "—"}</code><br>${waLogin.qr_hint || ""}</p>
             <p class="hint">Meta webhook: <code>${waLogin.webhook_path || "/api/meta/whatsapp/webhook"}</code> · verify token in env <code>WHATSAPP_VERIFY_TOKEN</code></p>
+            <hr style="border:0;border-top:1px solid rgba(255,255,255,.08);margin:14px 0" />
+            <h3 style="margin:0 0 8px;font-size:14px">User-wise sessions</h3>
+            <p class="hint" style="margin-top:0">SBAC multi-user WhatsApp — each user mobile/session with enable checkbox.</p>
+            <div class="row" style="gap:6px;flex-wrap:wrap;margin-bottom:8px">
+              <input id="ex-wa-user" type="text" placeholder="User label" style="flex:1;min-width:120px" />
+              <button type="button" class="btn btn-accent btn-sm" id="ex-wa-sess-add">+ Session</button>
+            </div>
+            ${table(
+              ["User", "Mobile", "Type", "On", ""],
+              (waLogin.sessions || []).map((s) => [
+                s.user_label || "—",
+                s.mobile || "—",
+                s.login_type || "User",
+                `<input type="checkbox" data-wa-sess-on="${s.id}" ${s.enabled !== false ? "checked" : ""} />`,
+                `<button type="button" class="btn btn-ghost btn-sm" data-wa-sess-rm="${s.id}">Remove</button>`,
+              ]),
+              "No user sessions — add User type session above."
+            )}
           </div></div>
         <div class="panel glass"><div class="panel-hd"><h2>Bill OCR (demo)</h2></div>
           <div class="panel-bd">
@@ -10838,6 +11216,46 @@
     $("#ex-wa-inst")?.addEventListener("click", () => waAct("instance"));
     $("#ex-wa-qr")?.addEventListener("click", () => waAct("qr"));
     $("#ex-wa-reset")?.addEventListener("click", () => waAct("reset"));
+    $("#ex-wa-sess-add")?.addEventListener("click", async () => {
+      try {
+        const r = await API.post("/api/extras/whatsapp-login", {
+          mobile: $("#ex-wa-mobile")?.value || "",
+          login_type: $("#ex-wa-type")?.value || "User",
+          user_label: $("#ex-wa-user")?.value || "",
+          action: "session_add",
+        });
+        toast(r.message || "Session added");
+        pageExtras(el);
+      } catch (e) { toast(e.message || "Session add failed"); }
+    });
+    el.querySelectorAll("[data-wa-sess-on]").forEach((cb) => {
+      cb.addEventListener("change", async () => {
+        try {
+          await API.post("/api/extras/whatsapp-login", {
+            action: "session_toggle",
+            session_id: cb.getAttribute("data-wa-sess-on"),
+            enabled: !!cb.checked,
+          });
+          toast(cb.checked ? "Session on" : "Session off");
+        } catch (e) {
+          toast(e.message || "Toggle failed");
+          cb.checked = !cb.checked;
+        }
+      });
+    });
+    el.querySelectorAll("[data-wa-sess-rm]").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Remove this WhatsApp user session?")) return;
+        try {
+          await API.post("/api/extras/whatsapp-login", {
+            action: "session_remove",
+            session_id: btn.getAttribute("data-wa-sess-rm"),
+          });
+          toast("Session removed");
+          pageExtras(el);
+        } catch (e) { toast(e.message || "Remove failed"); }
+      });
+    });
     $("#ex-ocr-run")?.addEventListener("click", async () => {
       try {
         const r = await API.post("/api/extras/ocr/parse", {
@@ -11382,6 +11800,115 @@
     });
   }
 
+  async function pageMasters(el) {
+    const types = ["brand", "main_group", "sub_group", "category", "unit", "transport", "agent", "country"];
+    let active = types[0];
+    const render = async () => {
+      const rows = await API.get(`/api/masters/${active}`).catch(() => []);
+      el.innerHTML = `
+        <div class="panel glass"><div class="panel-hd"><h2>Lookup Masters</h2>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <button class="btn btn-accent btn-sm" id="ms-seed">Seed defaults</button>
+            <a class="btn btn-ghost btn-sm" href="#/settings">White-label</a>
+          </div></div>
+          <div class="panel-bd">
+            <p class="hint">Brand · Group · Category · Unit · Transport · Agent · Country — Party/Item forms me live dropdown + inline +</p>
+            <div class="row" style="gap:6px;flex-wrap:wrap;margin:10px 0">
+              ${types.map((t) => `<button type="button" class="btn btn-sm ${t === active ? "btn-primary" : "btn-ghost"}" data-ms-tab="${t}">${t}</button>`).join("")}
+            </div>
+            <div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:12px">
+              <input id="ms-name" placeholder="Name" style="min-width:12rem" />
+              <input id="ms-code" placeholder="Code (optional)" style="min-width:8rem" />
+              <button type="button" class="btn btn-primary btn-sm" id="ms-add">+ Add ${active}</button>
+            </div>
+            ${table(
+              ["Code", "Name", "Active", ""],
+              (rows || []).map((r) => [
+                r.code,
+                r.name,
+                r.active ? "Yes" : "No",
+                r.active
+                  ? `<button class="btn btn-ghost btn-sm" data-ms-off="${r.id}">Deactivate</button>`
+                  : "—",
+              ]),
+              "No rows — Seed defaults or Add"
+            )}
+          </div></div>`;
+      el.querySelectorAll("[data-ms-tab]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          active = btn.getAttribute("data-ms-tab");
+          render();
+        });
+      });
+      $("#ms-seed")?.addEventListener("click", async () => {
+        try {
+          const r = await API.post("/api/masters-seed", {});
+          toast(`Seeded · created ${r.created || 0}`);
+          render();
+        } catch (e) {
+          toast(e.message || "Seed failed");
+        }
+      });
+      $("#ms-add")?.addEventListener("click", async () => {
+        const name = $("#ms-name")?.value?.trim();
+        if (!name) return toast("Name required");
+        try {
+          await API.post(`/api/masters/${active}`, { name, code: $("#ms-code")?.value || undefined });
+          toast("Added");
+          render();
+        } catch (e) {
+          toast(e.message || "Add failed");
+        }
+      });
+      el.querySelectorAll("[data-ms-off]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          try {
+            await API.del(`/api/masters/${active}/${btn.getAttribute("data-ms-off")}`);
+            toast("Deactivated");
+            render();
+          } catch (e) {
+            toast(e.message || "Failed");
+          }
+        });
+      });
+    };
+    await render();
+  }
+
+  async function openPrintDoc(docType, docId) {
+    try {
+      const r = await API.get(`/api/print/${docType}/${docId}`);
+      const b = r.brand || {};
+      const d = r.document || {};
+      const lines = (d.lines || [])
+        .map(
+          (ln) =>
+            `<tr><td>${ln.name || ln.sku || ""}</td><td>${ln.qty ?? ""}</td><td>${ln.rate ?? ""}</td><td>${ln.amount ?? ""}</td></tr>`
+        )
+        .join("");
+      const w = window.open("", "_blank", "noopener,width=900,height=700");
+      if (!w) return toast("Allow popups for print");
+      w.document.write(`<!doctype html><html><head><title>${d.number || docType}</title>
+        <style>body{font-family:Segoe UI,sans-serif;padding:24px;color:#111}
+        .hd{display:flex;gap:16px;align-items:center;border-bottom:2px solid #1d4ed8;padding-bottom:12px;margin-bottom:16px}
+        img{max-height:56px} table{width:100%;border-collapse:collapse;margin-top:12px}
+        th,td{border:1px solid #ddd;padding:6px 8px;font-size:13px;text-align:left}
+        @media print{button{display:none}}</style></head><body>
+        <div class="hd">${b.logo_url ? `<img src="${b.logo_url}" alt="logo"/>` : ""}
+          <div><h1 style="margin:0;font-size:20px">${b.company_name || b.app_name || "KanhaERP"}</h1>
+          <div>${b.tagline || ""} · GSTIN ${b.gstin || "—"}</div></div></div>
+        <h2 style="margin:0 0 8px">${(d.type || docType).toUpperCase()} ${d.number || ""}</h2>
+        <div>Party: <b>${d.party || d.party_name || "—"}</b> · Status: ${d.status || "—"} · Total: ${d.total ?? "—"}</div>
+        <table><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${lines || "<tr><td colspan=4>—</td></tr>"}</tbody></table>
+        <p style="margin-top:24px">${d.narration || d.custom?.remarks || ""}</p>
+        <button onclick="window.print()">Print</button>
+        </body></html>`);
+      w.document.close();
+    } catch (e) {
+      toast(e.message || "Print failed");
+    }
+  }
+
   async function pageSettings(el) {
     const [mods, fields, roles, workflows, audit, users, brand, health, drafts, anomalies, profiles, overview] = await Promise.all([
       API.get("/api/modules"),
@@ -11513,7 +12040,10 @@
         <div class="panel glass"><div class="panel-hd"><h2>White-label brand</h2></div><div class="panel-bd">
           <div class="field"><label>App name</label><input id="br-name" value="${brand.app_name || BRAND.name}" /></div>
           <div class="field"><label>Tagline</label><input id="br-tag" value="${brand.tagline || BRAND.tagline}" /></div>
-          <div class="field"><label>Logo URL</label><input id="br-logo" value="${brand.logo_url || ""}" /></div>
+          <div class="field"><label>Logo URL</label><input id="br-logo" value="${brand.logo_url || ""}" />
+            <input type="file" id="br-logo-file" accept="image/*" style="margin-top:6px" />
+            <p class="hint">Upload logo file (white-label) — URL auto-fills</p>
+          </div>
           <div class="field"><label>Primary color</label><input id="br-primary" value="${brand.primary || "#1d4ed8"}" /></div>
           <div class="field"><label>Company name</label><input id="br-co" value="${brand.company_name || ""}" /></div>
           <div class="field"><label>GSTIN</label><input id="br-gstin" value="${brand.company_gstin || ""}" /></div>
@@ -11652,6 +12182,17 @@
         toast("White-label saved");
       } catch (e) {
         toast(e.message || "Save failed");
+      }
+    });
+    $("#br-logo-file")?.addEventListener("change", async () => {
+      const f = $("#br-logo-file")?.files?.[0];
+      if (!f) return;
+      try {
+        const up = await API.uploadFile(f, { entity: "brand_logo", kind: "image" });
+        if ($("#br-logo")) $("#br-logo").value = up.url || up.path;
+        toast("Logo uploaded — Save white-label");
+      } catch (e) {
+        toast(e.message || "Logo upload failed");
       }
     });
     $("#pw-save")?.addEventListener("click", async () => {

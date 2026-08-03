@@ -10,6 +10,7 @@ from sqlalchemy import func
 
 from app.core.deps import CurrentUser, DbDep, audit, next_number
 from app.models import (
+    Account,
     ApprovalRequest,
     Customer,
     Delivery,
@@ -18,6 +19,7 @@ from app.models import (
     FieldVisit,
     FollowUp,
     Invoice,
+    JournalEntry,
     Lead,
     LeaveRequest,
     MaterialIndent,
@@ -827,11 +829,65 @@ def create_pay_req(body: PayReqIn, user: CurrentUser, db: DbDep) -> dict:
 
 @router.post("/payment-requests/{rid}/process")
 def process_pay_req(rid: int, user: CurrentUser, db: DbDep, status: str = "approved") -> dict:
+    """A3M-style: approve → paid posts Payment voucher to Kanha Books."""
+    from app.models import Account, JournalEntry
+    from app.services.hierarchy_approvals import submit_approval
+
     row = db.get(PaymentRequest, rid)
     if not row or row.company_id != user.company_id:
         raise HTTPException(404, "Not found")
     if status not in ("approved", "paid", "rejected"):
         raise HTTPException(400, "Invalid status")
+
+    if status == "approved" and row.status == "pending":
+        try:
+            submit_approval(
+                db,
+                company_id=user.company_id,
+                module="payment_request",
+                entity_type="payment_request",
+                entity_id=str(row.id),
+                title=f"Payment Request {row.number}",
+                amount=float(row.amount or 0),
+                requested_by=user.id,
+            )
+        except Exception:
+            pass
+        row.status = "approved"
+        db.commit()
+        return {"ok": True, "status": row.status, "message": "Approved — process as Paid to post voucher"}
+
+    if status == "paid":
+        row.status = "paid"
+        # Post payment voucher: Dr Expense/AP 2100, Cr Bank 1200
+        accounts = {
+            a.code: a
+            for a in db.query(Account).filter(Account.company_id == user.company_id, Account.active.is_(True)).all()
+        }
+        bank = accounts.get("1200") or accounts.get("1100")
+        ap = accounts.get("2100")
+        voucher_number = None
+        if bank and ap and float(row.amount or 0) > 0:
+            amt = float(row.amount)
+            voucher_number = next_number(db, user.company_id, JournalEntry, "PMT")
+            je = JournalEntry(
+                company_id=user.company_id,
+                number=voucher_number,
+                voucher_type="payment",
+                entry_date=date.today(),
+                narration=f"Payment Request {row.number}: {row.purpose or row.party_name}",
+                party_name=row.party_name or "",
+                lines=[
+                    {"account_id": ap.id, "account_code": ap.code, "debit": amt, "credit": 0},
+                    {"account_id": bank.id, "account_code": bank.code, "debit": 0, "credit": amt},
+                ],
+                status="posted",
+                created_by=user.id,
+            )
+            db.add(je)
+        db.commit()
+        return {"ok": True, "status": row.status, "voucher": voucher_number, "message": "Paid + books voucher posted"}
+
     row.status = status
     db.commit()
     return {"ok": True, "status": row.status}

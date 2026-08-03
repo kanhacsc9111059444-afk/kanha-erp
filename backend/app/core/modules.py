@@ -41,6 +41,7 @@ ALL_MODULES: dict[str, dict] = {
     "activity": {"name": "Activity / Tracking", "phase": 0, "icon": "pulse"},
     "automation": {"name": "Automation", "phase": 4, "icon": "bolt"},
     "extras": {"name": "Kanha Extras", "phase": 4, "icon": "spark"},
+    "masters": {"name": "Masters", "phase": 0, "icon": "box"},
     "settings": {"name": "Admin / Settings", "phase": 0, "icon": "gear"},
 }
 
@@ -85,6 +86,7 @@ DEFAULT_PERMISSIONS = [
     "activity.*",
     "automation.*",
     "extras.*",
+    "masters.*",
     "comms.*",
     "settings.*",
 ]
