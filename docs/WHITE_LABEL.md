@@ -1,95 +1,290 @@
-# White-label — kisi bhi company ka ERP banao
+# KanhaERP — White-Label Customization Guide
 
-KanhaERP ek product hai. Client ka naam / logo / colors / admin change karke **bina code rewrite** uska ERP ban jata hai.
+Configure KanhaERP for any company without code changes.
 
 ---
 
-## Step 1 — Copy pack
+## Quick Rebrand (5 minutes)
 
-```
-G:\KanhaERP-Final   →   C:\ClientERP   (ya server folder)
-```
+### Method 1: Environment Variables (.env)
 
-## Step 2 — `.env`
-
-```bat
-copy .env.example .env
-notepad .env
-```
-
-Minimum change:
+Edit `.env` file:
 
 ```env
-APP_NAME=ShreeBalajiERP
-BRAND_TAGLINE=Digital ERP
-BRAND_SUPPORT_EMAIL=it@client.com
-BRAND_PRIMARY=#0b3d91
-BRAND_ACCENT=#c45c26
-COMPANY_NAME=SHRI BALAJI ALLOYS CORPORATION
-COMPANY_CODE=SBAC
-COMPANY_GSTIN=22XXXXX....Z5
-
+APP_NAME=ClientERP
+COMPANY_NAME=Client Company Pvt Ltd
+COMPANY_CODE=CLIENT
+COMPANY_GSTIN=22AAAAA0000A1Z5
+BRAND_TAGLINE=Your Company Tagline
+BRAND_PRIMARY=#1d4ed8
+BRAND_ACCENT=#0f766e
+BRAND_LOGO_URL=/assets/your-logo.svg
+BRAND_SUPPORT_EMAIL=support@client.com
 ADMIN_EMAIL=admin@client.com
-ADMIN_PASSWORD=ReplaceWithStrong1
-SECRET_KEY=<python -c "import secrets; print(secrets.token_urlsafe(48))">
-DEMO_MODE=false
-CORS_ORIGINS=https://erp.client.com,http://127.0.0.1:8080
+ADMIN_PASSWORD=ClientPassword123!
 ```
 
-## Step 3 — Fresh database (naya client)
+Then restart:
 
+```bash
+# Stop current instance
+Ctrl+C
+
+# Start again
+uvicorn app.main:app --reload
 ```
-data\kanha_erp.db   delete (agar purana demo DB hai)
-SETUP_PORTABLE.bat  (pehli baar)
-START_KANHA.bat
-```
-
-Login → naya `ADMIN_EMAIL` / `ADMIN_PASSWORD`.
-
-## Step 4 — Brand / logo
-
-- Logo file: `frontend/assets/` me rakho → `BRAND_LOGO_URL=/assets/your-logo.svg`
-- Ya Admin UI brand save (`PUT /api/brand`)
-
-## Step 5 — Live integrations (optional)
-
-| Need | Set in `.env` |
-|------|----------------|
-| WhatsApp Meta | `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_VERIFY_TOKEN` |
-| Payments | `RAZORPAY_*` |
-| e-Invoice | `GSP_*` |
-| AI | `LLM_*` |
-| Email | `SMTP_*` |
-
-Webhook URL Meta console me:  
-`https://YOUR-DOMAIN/api/meta/whatsapp/webhook`
-
-## Step 6 — Production domain (kanhaone.com later)
-
-1. Postgres `DATABASE_URL=...`
-2. `DEMO_MODE=false`
-3. nginx/Caddy → port 8080 + HTTPS
-4. `CORS_ORIGINS=https://kanhaone.com`
-5. See `GO_LIVE.md`
 
 ---
 
-## Do / Don't
+### Method 2: Admin UI (No Restart)
 
-| Do | Don't |
-|----|--------|
-| Har client ka alag folder + alag `.env` + alag DB | Ek hi live DB pe do companies mix |
-| Strong `SECRET_KEY` + admin password | Default `admin123` production me |
-| Backup `data/` regularly | `.venv` ko zip me force mat karo (SETUP dubara bana leta hai) |
+1. Login as Admin
+2. Go to **Settings** → **Brand**
+3. Update:
+   - Company Name
+   - Logo (upload PNG/SVG)
+   - Brand colors
+   - Tagline
+   - Support email
+4. Click **Save**
+
+Changes apply immediately without restart.
 
 ---
 
-## Checklist before handoff
+## Customization Options
 
-- [ ] APP_NAME / COMPANY_NAME correct
-- [ ] Admin login works
-- [ ] DEMO_MODE=false (live)
-- [ ] SECRET_KEY not `change-me…`
-- [ ] CORS = real domain
-- [ ] Backup script / `#/ha` mirrors known
-- [ ] Staff trained on `docs/USER_GUIDE.md`
+### 1. Company Information
+
+**Settings** → **Company**
+
+- Company name
+- GST number
+- Address
+- Phone number
+- Currency
+- Financial year
+
+### 2. Branding
+
+**Settings** → **Brand**
+
+- **Logo:** Upload PNG/SVG (recommended 200x50px)
+- **Primary Color:** Main brand color (hex)
+- **Accent Color:** Secondary color (hex)
+- **Tagline:** Your company tagline
+- **Support Email:** Help desk email
+
+### 3. User Roles & Permissions
+
+**Settings** → **Roles**
+
+Create custom roles:
+- Sales Manager
+- Purchase Manager
+- Accountant
+- HR Manager
+- Store Manager
+
+Assign permissions per module.
+
+### 4. Custom Fields
+
+**Settings** → **Custom Fields**
+
+Add fields to any entity:
+- Party (customer/vendor)
+- Product
+- Invoice
+- Purchase Order
+- Employee
+
+Example: Add "Department Code" to employees
+
+### 5. Workflows
+
+**Settings** → **Workflows**
+
+Define approval workflows:
+- Sales Order approval (amount threshold)
+- Purchase Order approval
+- Expense claim workflow
+- Leave approval hierarchy
+
+---
+
+## Theme Customization (Advanced)
+
+### Color Scheme
+
+Edit `frontend/css/theme.css` for custom colors:
+
+```css
+:root {
+  --primary: #1d4ed8;
+  --accent: #0f766e;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+```
+
+### Logo
+
+Replace `frontend/favicon.svg` with your logo:
+
+1. Prepare logo as SVG or PNG (200x50px recommended)
+2. Save as `frontend/favicon.svg`
+3. Restart application
+
+### Email Template
+
+Customize email notifications in `backend/app/services/email.py`
+
+---
+
+## Multi-Tenant Setup (Advanced)
+
+For multiple clients with separate databases:
+
+### Database per Client
+
+```bash
+# Create separate database
+psql -U postgres
+CREATE DATABASE client1_erp;
+CREATE USER client1 WITH PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE client1_erp TO client1;
+```
+
+### Configuration per Client
+
+Create separate `.env` files:
+
+```bash
+.env.client1
+.env.client2
+```
+
+Start instances:
+
+```bash
+# Client 1 on port 8001
+env $(cat .env.client1) uvicorn app.main:app --port 8001
+
+# Client 2 on port 8002
+env $(cat .env.client2) uvicorn app.main:app --port 8002
+```
+
+Use nginx to route by domain:
+
+```nginx
+server {
+    server_name client1.erp.com;
+    location / {
+        proxy_pass http://127.0.0.1:8001;
+    }
+}
+
+server {
+    server_name client2.erp.com;
+    location / {
+        proxy_pass http://127.0.0.1:8002;
+    }
+}
+```
+
+---
+
+## Deployment Scenarios
+
+### Scenario 1: Single Company, Single Server
+
+- One `.env` file
+- One database
+- One application instance
+- One domain
+
+### Scenario 2: Multiple Branches (Same Company)
+
+- One `.env` file
+- One database (with branch column in tables)
+- One application instance
+- Configure branches in **Settings** → **Branches**
+
+### Scenario 3: Multiple Clients (Different Companies)
+
+- Separate `.env` for each client
+- Separate database per client
+- Separate application instances (different ports)
+- Reverse proxy (nginx) to route by domain
+
+---
+
+## Customization Checklist
+
+- [ ] Update company name and GST
+- [ ] Upload logo
+- [ ] Set brand colors
+- [ ] Configure admin email
+- [ ] Create user roles
+- [ ] Add custom fields
+- [ ] Set up approval workflows
+- [ ] Create chart of accounts
+- [ ] Add warehouses
+- [ ] Import product master
+- [ ] Import customer/vendor list
+- [ ] Configure integrations (WhatsApp, Razorpay, etc.)
+- [ ] Set up email templates
+- [ ] Test all workflows
+- [ ] Train staff
+- [ ] Set up backups
+
+---
+
+## Common Customizations
+
+### Add Custom Field to Invoice
+
+1. **Settings** → **Custom Fields**
+2. Click **+ Add Field**
+3. Entity: "Invoice"
+4. Field name: "Project Code"
+5. Type: "Text"
+6. Click **Save**
+7. Field appears in invoice form
+
+### Create Sales Manager Role
+
+1. **Settings** → **Roles**
+2. Click **+ Add Role**
+3. Name: "Sales Manager"
+4. Permissions:
+   - ✓ Create/Edit Sales Orders
+   - ✓ Create/Edit Invoices
+   - ✓ View Reports
+   - ✓ View Payments
+5. Click **Save**
+
+### Set Approval Workflow
+
+1. **Settings** → **Workflows**
+2. Click **+ Add Workflow**
+3. Name: "PO Approval"
+4. Entity: "Purchase Order"
+5. Add steps:
+   - Step 1: Purchase Manager approval
+   - Step 2: Finance Manager approval
+6. Click **Save**
+
+---
+
+## Support
+
+- Configuration help: See `ACTIVATION.md`
+- Deployment: See `GO_LIVE.md`
+- User guide: See `USER_GUIDE.md`
+
+---
+
+**Last Updated:** August 2, 2026
